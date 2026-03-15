@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>명함 QR코드 생성기 (vCard) - 무료 온라인 | QR킷</title>
+  <meta name="description" content="이름·전화·이메일·회사 정보를 vCard QR코드로 변환. 스마트폰으로 스캔하면 바로 연락처에 저장. 무료, 회원가입 불필요.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="QR킷">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">QR킷 <span>| QRKit</span></a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">Linker Services</span>
+  <div class="our-sites-links">
+    <a href="https://linker.wooahouse.com/" target="_blank" rel="noopener">🔗 Linker</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 PDFKit</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ ImageKit</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
+  </div>
+</div>
+
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">QR킷</a>
+    <span>›</span>
+    <span>명함 QR코드 생성</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">👤</span>
+    <h1>명함 QR코드 생성기</h1>
+    <p>연락처 정보를 vCard 3.0 형식의 QR코드로 변환합니다. 스캔하면 연락처에 바로 저장됩니다.</p>
+  </div>
+
+  <div class="input-panel">
+    <div class="input-row">
+      <div class="field-group">
+        <label for="nameInput">이름 *</label>
+        <input type="text" id="nameInput" placeholder="홍길동" autocomplete="off">
+      </div>
+      <div class="field-group">
+        <label for="orgInput">회사 / 소속</label>
+        <input type="text" id="orgInput" placeholder="(주)회사명" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="input-row" style="margin-top:16px;">
+      <div class="field-group">
+        <label for="titleInput">직책</label>
+        <input type="text" id="titleInput" placeholder="부장" autocomplete="off">
+      </div>
+      <div class="field-group">
+        <label for="phoneInput">전화번호</label>
+        <input type="tel" id="phoneInput" placeholder="010-1234-5678" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="input-row" style="margin-top:16px;">
+      <div class="field-group">
+        <label for="emailInput">이메일</label>
+        <input type="email" id="emailInput" placeholder="name@company.com" autocomplete="off">
+      </div>
+      <div class="field-group">
+        <label for="websiteInput">웹사이트</label>
+        <input type="url" id="websiteInput" placeholder="https://example.com" autocomplete="off">
+      </div>
+    </div>
+  </div>
+
+  <div class="options-panel">
+    <div class="options-title">옵션</div>
+    <div class="option-row">
+      <span class="option-label">QR 크기</span>
+      <div class="option-control">
+        <select id="sizeSelect">
+          <option value="128">128 × 128 px</option>
+          <option value="256" selected>256 × 256 px</option>
+          <option value="512">512 × 512 px</option>
+        </select>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">전경색 (QR)</span>
+      <div class="option-control">
+        <div class="color-row">
+          <input type="color" id="fgColor" value="#000000">
+          <span>QR 코드 색상</span>
+        </div>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">배경색</span>
+      <div class="option-control">
+        <div class="color-row">
+          <input type="color" id="bgColor" value="#ffffff">
+          <span>배경 색상</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qr-preview-panel">
+    <div class="qr-preview-label">QR코드 미리보기</div>
+    <div id="qrcode">
+      <div class="qr-placeholder">
+        <span class="qr-placeholder-icon">👤</span>
+        <span>이름을 입력하면 QR코드가 생성됩니다</span>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button id="downloadBtn" class="btn-primary" disabled>⬇️ PNG 다운로드</button>
+    </div>
+  </div>
+
+  <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:16px 20px; margin-top:16px; font-size:0.88rem; color:#15803D;">
+    <strong>📱 사용 방법</strong><br>
+    생성된 QR코드를 명함에 인쇄하거나 공유하면, 상대방이 스마트폰 카메라로 스캔해서 연락처를 바로 저장할 수 있습니다.
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 QR킷. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  const fields = ['nameInput','orgInput','titleInput','phoneInput','emailInput','websiteInput','sizeSelect','fgColor','bgColor'];
+
+  function buildVCard() {
+    const name = document.getElementById('nameInput').value.trim();
+    const org = document.getElementById('orgInput').value.trim();
+    const title = document.getElementById('titleInput').value.trim();
+    const phone = document.getElementById('phoneInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const website = document.getElementById('websiteInput').value.trim();
+
+    let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+    if (name) vcard += `FN:${name}\nN:${name};;;;\n`;
+    if (org) vcard += `ORG:${org}\n`;
+    if (title) vcard += `TITLE:${title}\n`;
+    if (phone) vcard += `TEL;TYPE=CELL:${phone}\n`;
+    if (email) vcard += `EMAIL:${email}\n`;
+    if (website) vcard += `URL:${website}\n`;
+    vcard += 'END:VCARD';
+    return vcard;
+  }
+
+  function generateQR() {
+    const name = document.getElementById('nameInput').value.trim();
+    const size = parseInt(document.getElementById('sizeSelect').value);
+    const fg = document.getElementById('fgColor').value;
+    const bg = document.getElementById('bgColor').value;
+    const container = document.getElementById('qrcode');
+    const dlBtn = document.getElementById('downloadBtn');
+
+    if (!name) {
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">👤</span><span>이름을 입력하면 QR코드가 생성됩니다</span></div>';
+      dlBtn.disabled = true;
+      return;
+    }
+
+    const vcard = buildVCard();
+    container.innerHTML = '';
+    try {
+      new QRCode(container, {
+        text: vcard,
+        width: size,
+        height: size,
+        colorDark: fg,
+        colorLight: bg,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      dlBtn.disabled = false;
+    } catch(e) {
+      container.innerHTML = '<div class="alert alert-error">QR코드 생성에 실패했습니다. 입력값을 확인해주세요.</div>';
+      dlBtn.disabled = true;
+    }
+  }
+
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', generateQR);
+      el.addEventListener('change', generateQR);
+    }
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    const canvas = document.querySelector('#qrcode canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'qrcode-vcard.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+})();
+</script>
+</body>
+</html>

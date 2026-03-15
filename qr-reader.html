@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR코드 읽기 - 이미지 파일 QR 디코더 | QR킷</title>
+  <meta name="description" content="QR코드 이미지 파일을 업로드해 내용을 바로 확인. 드래그&드롭 지원. 브라우저에서 처리, 서버 전송 없음. 무료.">
+  <meta name="keywords" content="QR코드읽기, QR코드해독, QR코드디코더, QR코드스캔, 이미지QR읽기, 무료QR">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/qr-reader.html">
+  <meta property="og:title" content="QR코드 읽기 - 이미지 파일 업로드 | QR킷">
+  <meta property="og:description" content="QR코드 이미지를 업로드해 내용을 바로 확인. 브라우저에서 100% 처리.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/qr-reader.html">
+  <meta property="og:locale" content="ko_KR">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="QR킷">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: white;
+      margin-bottom: 20px;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .drop-zone-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .drop-zone-text { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .drop-zone-sub { font-size: 0.85rem; color: var(--text-light); }
+    .drop-zone input[type="file"] { display: none; }
+    .preview-canvas-wrap {
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+    #previewCanvas {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+    }
+    .result-panel {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      display: none;
+    }
+    .result-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+    .result-text {
+      font-size: 1rem;
+      color: var(--text);
+      word-break: break-all;
+      line-height: 1.6;
+      background: var(--bg);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+    }
+    .result-error {
+      color: #EF4444;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">QR킷 <span>| QRKit</span></a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">Linker Services</span>
+  <div class="our-sites-links">
+    <a href="https://linker.wooahouse.com/" target="_blank" rel="noopener">🔗 Linker</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 PDFKit</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ ImageKit</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
+  </div>
+</div>
+
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">QR킷</a>
+    <span>›</span>
+    <span>QR코드 읽기</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🔍</span>
+    <h1>QR코드 읽기</h1>
+    <p>QR코드가 포함된 이미지 파일을 업로드하면 내용을 바로 확인할 수 있습니다. 모든 처리는 브라우저에서 이루어집니다.</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <div class="drop-zone-text">이미지를 여기에 드래그하거나 클릭해서 선택</div>
+    <div class="drop-zone-sub">PNG, JPG, GIF, WebP, BMP 등 이미지 파일 지원</div>
+    <input type="file" id="fileInput" accept="image/*">
+  </div>
+
+  <div class="preview-canvas-wrap" id="previewWrap">
+    <canvas id="previewCanvas"></canvas>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-label">해독 결과</div>
+    <div id="resultContent"></div>
+    <div class="btn-group" id="resultBtns" style="display:none;">
+      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 카메라로 실시간 스캔하려면? <a href="qr-camera.html">카메라 QR 읽기 →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 QR킷. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const previewWrap = document.getElementById('previewWrap');
+  const previewCanvas = document.getElementById('previewCanvas');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultContent = document.getElementById('resultContent');
+  const resultBtns = document.getElementById('resultBtns');
+  const copyBtn = document.getElementById('copyBtn');
+  const openBtn = document.getElementById('openBtn');
+
+  let lastResult = '';
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => {
+    if (e.target.files[0]) processFile(e.target.files[0]);
+  });
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) processFile(file);
+  });
+
+  function processFile(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const ctx = previewCanvas.getContext('2d');
+        previewCanvas.width = img.width;
+        previewCanvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        previewWrap.style.display = 'block';
+
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        const code = jsQR(imageData.data, img.width, img.height);
+
+        resultPanel.style.display = 'block';
+        if (code) {
+          lastResult = code.data;
+          resultContent.innerHTML = '<div class="result-text">' + escapeHtml(code.data) + '</div>';
+          resultBtns.style.display = 'flex';
+          // Show open button if URL
+          if (/^https?:\/\//i.test(code.data)) {
+            openBtn.style.display = '';
+          } else {
+            openBtn.style.display = 'none';
+          }
+        } else {
+          lastResult = '';
+          resultContent.innerHTML = '<div class="result-error">⚠️ QR코드를 찾을 수 없습니다. 더 선명한 이미지를 사용해보세요.</div>';
+          resultBtns.style.display = 'none';
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  copyBtn.addEventListener('click', function() {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult).then(() => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = lastResult;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    });
+  });
+
+  openBtn.addEventListener('click', function() {
+    if (lastResult) window.open(lastResult, '_blank', 'noopener');
+  });
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+})();
+</script>
+</body>
+</html>

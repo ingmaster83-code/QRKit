@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL QR코드 생성기 - 무료 온라인 | QR킷</title>
+  <meta name="description" content="URL을 QR코드로 무료 변환. 사이트 주소, 링크를 QR코드로 만들어 PNG로 다운로드. 크기·색상 커스텀 가능. 회원가입 불필요.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="QR킷">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">QR킷 <span>| QRKit</span></a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">Linker Services</span>
+  <div class="our-sites-links">
+    <a href="https://linker.wooahouse.com/" target="_blank" rel="noopener">🔗 Linker</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 PDFKit</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ ImageKit</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
+  </div>
+</div>
+
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">QR킷</a>
+    <span>›</span>
+    <span>URL QR코드 생성</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🔗</span>
+    <h1>URL QR코드 생성기</h1>
+    <p>URL을 QR코드로 변환해 PNG로 다운로드하세요. 크기와 색상을 자유롭게 설정할 수 있습니다.</p>
+  </div>
+
+  <div class="input-panel">
+    <label for="urlInput">URL 입력</label>
+    <input type="url" id="urlInput" placeholder="https://example.com" autocomplete="off">
+  </div>
+
+  <div class="options-panel">
+    <div class="options-title">옵션</div>
+    <div class="option-row">
+      <span class="option-label">QR 크기</span>
+      <div class="option-control">
+        <select id="sizeSelect">
+          <option value="128">128 × 128 px</option>
+          <option value="256" selected>256 × 256 px</option>
+          <option value="512">512 × 512 px</option>
+        </select>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">전경색 (QR)</span>
+      <div class="option-control">
+        <div class="color-row">
+          <input type="color" id="fgColor" value="#000000">
+          <span>QR 코드 색상</span>
+        </div>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">배경색</span>
+      <div class="option-control">
+        <div class="color-row">
+          <input type="color" id="bgColor" value="#ffffff">
+          <span>배경 색상</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qr-preview-panel">
+    <div class="qr-preview-label">QR코드 미리보기</div>
+    <div id="qrcode">
+      <div class="qr-placeholder">
+        <span class="qr-placeholder-icon">📱</span>
+        <span>URL을 입력하면 QR코드가 생성됩니다</span>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button id="downloadBtn" class="btn-primary" disabled>⬇️ PNG 다운로드</button>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 QR코드가 담긴 이미지를 편집하고 싶다면? <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">ImageKit에서 이미지 편집하기 →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 QR킷. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  let qrInstance = null;
+
+  function generateQR() {
+    const url = document.getElementById('urlInput').value.trim();
+    const size = parseInt(document.getElementById('sizeSelect').value);
+    const fg = document.getElementById('fgColor').value;
+    const bg = document.getElementById('bgColor').value;
+    const container = document.getElementById('qrcode');
+    const dlBtn = document.getElementById('downloadBtn');
+
+    if (!url) {
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📱</span><span>URL을 입력하면 QR코드가 생성됩니다</span></div>';
+      dlBtn.disabled = true;
+      return;
+    }
+
+    container.innerHTML = '';
+    qrInstance = new QRCode(container, {
+      text: url,
+      width: size,
+      height: size,
+      colorDark: fg,
+      colorLight: bg,
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    dlBtn.disabled = false;
+  }
+
+  document.getElementById('urlInput').addEventListener('input', generateQR);
+  document.getElementById('sizeSelect').addEventListener('change', generateQR);
+  document.getElementById('fgColor').addEventListener('input', generateQR);
+  document.getElementById('bgColor').addEventListener('input', generateQR);
+
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    const canvas = document.querySelector('#qrcode canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'qrcode-url.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+})();
+</script>
+</body>
+</html>

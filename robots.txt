@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qrkit.wooahouse.com/sitemap.xml

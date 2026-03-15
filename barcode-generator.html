@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바코드 생성기 - CODE128·EAN-13·UPC-A 무료 온라인 | QR킷</title>
+  <meta name="description" content="CODE128, EAN-13, UPC-A, CODE39 바코드를 무료 온라인 생성. 크기·높이 조절, PNG 다운로드. 회원가입 불필요.">
+  <meta name="keywords" content="바코드생성기, CODE128, EAN-13, UPC-A, CODE39, 바코드만들기, 무료바코드, 온라인바코드">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/barcode-generator.html">
+  <meta property="og:title" content="바코드 생성기 - CODE128·EAN-13·UPC-A | QR킷">
+  <meta property="og:description" content="다양한 형식의 바코드를 무료로 생성. PNG 다운로드 지원.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/barcode-generator.html">
+  <meta property="og:locale" content="ko_KR">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="QR킷">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .barcode-preview-wrap {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #barcodeSvg {
+      max-width: 100%;
+    }
+    .barcode-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-light);
+    }
+    .barcode-placeholder-icon { font-size: 3rem; }
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .range-row input[type="range"] {
+      flex: 1;
+    }
+    .range-val {
+      min-width: 36px;
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .error-msg {
+      color: #EF4444;
+      font-size: 0.88rem;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">QR킷 <span>| QRKit</span></a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">Linker Services</span>
+  <div class="our-sites-links">
+    <a href="https://linker.wooahouse.com/" target="_blank" rel="noopener">🔗 Linker</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 PDFKit</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ ImageKit</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
+  </div>
+</div>
+
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">QR킷</a>
+    <span>›</span>
+    <span>바코드 생성기</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📊</span>
+    <h1>바코드 생성기</h1>
+    <p>CODE128, EAN-13, UPC-A, CODE39 등 다양한 형식의 바코드를 무료로 생성하고 PNG로 다운로드하세요.</p>
+  </div>
+
+  <div class="input-panel">
+    <label for="barcodeInput">바코드 값 입력</label>
+    <input type="text" id="barcodeInput" placeholder="바코드에 인코딩할 텍스트 또는 숫자" autocomplete="off">
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <div class="options-panel">
+    <div class="options-title">옵션</div>
+    <div class="option-row">
+      <span class="option-label">형식</span>
+      <div class="option-control">
+        <select id="formatSelect">
+          <option value="CODE128" selected>CODE128 (범용)</option>
+          <option value="EAN13">EAN-13 (12자리 숫자)</option>
+          <option value="UPC">UPC-A (11자리 숫자)</option>
+          <option value="CODE39">CODE39</option>
+        </select>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">라인 폭</span>
+      <div class="option-control">
+        <div class="range-row">
+          <input type="range" id="widthRange" min="1" max="4" step="1" value="2">
+          <span class="range-val" id="widthVal">2</span>
+        </div>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">높이 (px)</span>
+      <div class="option-control">
+        <div class="range-row">
+          <input type="range" id="heightRange" min="50" max="200" step="10" value="100">
+          <span class="range-val" id="heightVal">100</span>
+        </div>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">값 표시</span>
+      <div class="option-control">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="checkbox" id="displayValue" checked style="width:16px; height:16px; accent-color:var(--primary);">
+          <span>바코드 아래 값 표시</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="barcode-preview-wrap" id="barcodePreviewWrap">
+    <div class="barcode-placeholder" id="barcodePlaceholder">
+      <span class="barcode-placeholder-icon">📊</span>
+      <span>값을 입력하면 바코드가 생성됩니다</span>
+    </div>
+    <svg id="barcodeSvg" style="display:none;"></svg>
+  </div>
+
+  <div class="btn-group">
+    <button id="downloadBtn" class="btn-primary" disabled>⬇️ PNG 다운로드</button>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 QR코드도 생성하고 싶다면? <a href="qr-url.html">URL QR코드 생성하기 →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 QR킷. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  const barcodeInput = document.getElementById('barcodeInput');
+  const formatSelect = document.getElementById('formatSelect');
+  const widthRange = document.getElementById('widthRange');
+  const widthVal = document.getElementById('widthVal');
+  const heightRange = document.getElementById('heightRange');
+  const heightVal = document.getElementById('heightVal');
+  const displayValue = document.getElementById('displayValue');
+  const barcodeSvg = document.getElementById('barcodeSvg');
+  const barcodePlaceholder = document.getElementById('barcodePlaceholder');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const errorMsg = document.getElementById('errorMsg');
+
+  widthRange.addEventListener('input', () => { widthVal.textContent = widthRange.value; generateBarcode(); });
+  heightRange.addEventListener('input', () => { heightVal.textContent = heightRange.value; generateBarcode(); });
+  barcodeInput.addEventListener('input', generateBarcode);
+  formatSelect.addEventListener('change', generateBarcode);
+  displayValue.addEventListener('change', generateBarcode);
+
+  function generateBarcode() {
+    const value = barcodeInput.value.trim();
+    const format = formatSelect.value;
+    const width = parseInt(widthRange.value);
+    const height = parseInt(heightRange.value);
+    const showVal = displayValue.checked;
+
+    errorMsg.textContent = '';
+
+    if (!value) {
+      barcodeSvg.style.display = 'none';
+      barcodePlaceholder.style.display = 'flex';
+      downloadBtn.disabled = true;
+      return;
+    }
+
+    try {
+      JsBarcode(barcodeSvg, value, {
+        format: format,
+        width: width,
+        height: height,
+        displayValue: showVal,
+        margin: 12,
+        background: '#ffffff',
+        lineColor: '#000000'
+      });
+      barcodeSvg.style.display = 'block';
+      barcodePlaceholder.style.display = 'none';
+      downloadBtn.disabled = false;
+      errorMsg.textContent = '';
+    } catch (e) {
+      barcodeSvg.style.display = 'none';
+      barcodePlaceholder.style.display = 'flex';
+      downloadBtn.disabled = true;
+      errorMsg.textContent = '⚠️ ' + (e.message || '유효하지 않은 값입니다. 형식에 맞는 값을 입력해주세요.');
+    }
+  }
+
+  downloadBtn.addEventListener('click', function() {
+    if (barcodeSvg.style.display === 'none') return;
+    // Draw SVG on canvas and download as PNG
+    const svgData = new XMLSerializer().serializeToString(barcodeSvg);
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width || barcodeSvg.getBoundingClientRect().width;
+      canvas.height = img.height || barcodeSvg.getBoundingClientRect().height;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      const link = document.createElement('a');
+      link.download = 'barcode-' + formatSelect.value.toLowerCase() + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+    img.src = url;
+  });
+})();
+</script>
+</body>
+</html>

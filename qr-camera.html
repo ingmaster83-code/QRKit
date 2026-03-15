@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카메라 QR코드 읽기 - 실시간 웹캠 스캔 | QR킷</title>
+  <meta name="description" content="웹캠 카메라로 QR코드를 실시간 스캔. 별도 앱 없이 브라우저에서 바로 사용. 완전 무료, 서버 전송 없음.">
+  <meta name="keywords" content="카메라QR읽기, 웹캠QR스캔, 실시간QR, QR코드스캔, 무료QR읽기">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/qr-camera.html">
+  <meta property="og:title" content="카메라 QR코드 읽기 - 실시간 스캔 | QR킷">
+  <meta property="og:description" content="웹캠으로 QR코드를 실시간 스캔. 브라우저에서 바로 사용.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/qr-camera.html">
+  <meta property="og:locale" content="ko_KR">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="QR킷">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .camera-wrap {
+      position: relative;
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      aspect-ratio: 4/3;
+    }
+    #cameraVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    #scanCanvas {
+      display: none;
+    }
+    .camera-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .scan-frame {
+      width: 200px;
+      height: 200px;
+      border: 3px solid rgba(16, 185, 129, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.35);
+    }
+    .scan-hint {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.82rem;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .camera-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      gap: 10px;
+      background: #1a1a2e;
+    }
+    .camera-placeholder-icon { font-size: 3rem; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .status-badge.scanning { background: #D1FAE5; color: #059669; }
+    .status-badge.stopped { background: #F3F4F6; color: #6B7280; }
+    .status-badge.found { background: #FEF3C7; color: #D97706; }
+    .result-panel {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .result-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-light); margin-bottom: 10px; }
+    .result-text { font-size: 1rem; color: var(--text); word-break: break-all; line-height: 1.6; background: var(--bg); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 14px; }
+    .error-msg { color: #EF4444; font-size: 0.9rem; padding: 12px 16px; background: #FEF2F2; border-radius: var(--radius-sm); margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">QR킷 <span>| QRKit</span></a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">Linker Services</span>
+  <div class="our-sites-links">
+    <a href="https://linker.wooahouse.com/" target="_blank" rel="noopener">🔗 Linker</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 PDFKit</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ ImageKit</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
+  </div>
+</div>
+
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">QR킷</a>
+    <span>›</span>
+    <span>카메라 QR 읽기</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📷</span>
+    <h1>카메라 QR코드 읽기</h1>
+    <p>웹캠으로 QR코드를 실시간 스캔합니다. 카메라 접근 권한을 허용해 주세요.</p>
+  </div>
+
+  <div style="text-align:center; margin-bottom:12px;">
+    <span class="status-badge stopped" id="statusBadge">⏹ 중지됨</span>
+  </div>
+
+  <div id="errorMsg" class="error-msg" style="display:none;"></div>
+
+  <div class="camera-wrap" id="cameraWrap">
+    <div class="camera-placeholder" id="cameraPlaceholder">
+      <span class="camera-placeholder-icon">📷</span>
+      <span>카메라 시작 버튼을 눌러주세요</span>
+    </div>
+    <video id="cameraVideo" autoplay playsinline muted style="display:none;"></video>
+    <canvas id="scanCanvas"></canvas>
+    <div class="camera-overlay" id="cameraOverlay" style="display:none;">
+      <div class="scan-frame"></div>
+      <div class="scan-hint">QR코드를 프레임 안에 맞춰주세요</div>
+    </div>
+  </div>
+
+  <div class="btn-group" style="justify-content:center; margin-bottom:20px;">
+    <button id="startBtn" class="btn-primary">▶ 카메라 시작</button>
+    <button id="stopBtn" class="btn-secondary" style="display:none;">⏹ 카메라 중지</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel" style="display:none;">
+    <div class="result-label">스캔 결과</div>
+    <div class="result-text" id="resultText"></div>
+    <div class="btn-group">
+      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
+      <button id="continueBtn" class="btn-secondary">🔄 계속 스캔</button>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 이미지 파일로 QR코드를 읽으려면? <a href="qr-reader.html">QR코드 읽기 (파일 업로드) →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 QR킷. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  const video = document.getElementById('cameraVideo');
+  const scanCanvas = document.getElementById('scanCanvas');
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const statusBadge = document.getElementById('statusBadge');
+  const errorMsg = document.getElementById('errorMsg');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultText = document.getElementById('resultText');
+  const copyBtn = document.getElementById('copyBtn');
+  const openBtn = document.getElementById('openBtn');
+  const continueBtn = document.getElementById('continueBtn');
+  const cameraPlaceholder = document.getElementById('cameraPlaceholder');
+  const cameraOverlay = document.getElementById('cameraOverlay');
+
+  let stream = null;
+  let animFrame = null;
+  let scanning = false;
+  let paused = false;
+  let lastResult = '';
+
+  function setStatus(state) {
+    statusBadge.className = 'status-badge ' + state;
+    if (state === 'scanning') statusBadge.textContent = '🔍 스캔 중...';
+    else if (state === 'stopped') statusBadge.textContent = '⏹ 중지됨';
+    else if (state === 'found') statusBadge.textContent = '✅ QR코드 발견!';
+  }
+
+  startBtn.addEventListener('click', startCamera);
+  stopBtn.addEventListener('click', stopCamera);
+  continueBtn.addEventListener('click', resumeScanning);
+
+  async function startCamera() {
+    errorMsg.style.display = 'none';
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
+      video.srcObject = stream;
+      video.style.display = 'block';
+      cameraPlaceholder.style.display = 'none';
+      cameraOverlay.style.display = 'flex';
+      startBtn.style.display = 'none';
+      stopBtn.style.display = '';
+      scanning = true;
+      paused = false;
+      setStatus('scanning');
+      video.addEventListener('loadedmetadata', startScan);
+    } catch (err) {
+      let msg = '카메라 접근 실패: ';
+      if (err.name === 'NotAllowedError') msg += '카메라 권한이 거부되었습니다. 브라우저 설정에서 카메라 권한을 허용해주세요.';
+      else if (err.name === 'NotFoundError') msg += '카메라를 찾을 수 없습니다.';
+      else if (err.name === 'NotSupportedError') msg += 'HTTPS 환경에서만 카메라를 사용할 수 있습니다.';
+      else msg += err.message;
+      errorMsg.textContent = '⚠️ ' + msg;
+      errorMsg.style.display = 'block';
+      setStatus('stopped');
+    }
+  }
+
+  function startScan() {
+    if (!scanning || paused) return;
+    scanCanvas.width = video.videoWidth;
+    scanCanvas.height = video.videoHeight;
+    const ctx = scanCanvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, scanCanvas.width, scanCanvas.height);
+    const imageData = ctx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+    const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+    if (code) {
+      paused = true;
+      lastResult = code.data;
+      setStatus('found');
+      resultText.textContent = code.data;
+      resultPanel.style.display = 'block';
+      if (/^https?:\/\//i.test(code.data)) {
+        openBtn.style.display = '';
+      } else {
+        openBtn.style.display = 'none';
+      }
+    } else {
+      animFrame = requestAnimationFrame(startScan);
+    }
+  }
+
+  function resumeScanning() {
+    paused = false;
+    resultPanel.style.display = 'none';
+    lastResult = '';
+    setStatus('scanning');
+    animFrame = requestAnimationFrame(startScan);
+  }
+
+  function stopCamera() {
+    scanning = false;
+    paused = false;
+    if (animFrame) cancelAnimationFrame(animFrame);
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+    video.srcObject = null;
+    video.style.display = 'none';
+    cameraPlaceholder.style.display = 'flex';
+    cameraOverlay.style.display = 'none';
+    startBtn.style.display = '';
+    stopBtn.style.display = 'none';
+    resultPanel.style.display = 'none';
+    setStatus('stopped');
+  }
+
+  copyBtn.addEventListener('click', function() {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult).then(() => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = lastResult;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    });
+  });
+
+  openBtn.addEventListener('click', function() {
+    if (lastResult) window.open(lastResult, '_blank', 'noopener');
+  });
+
+  // Stop camera on page hide
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && stream) stopCamera();
+  });
+})();
+</script>
+</body>
+</html>
