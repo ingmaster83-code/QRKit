@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR코드 커스터마이징 — 색상 변경·로고 삽입 QR코드 생성 | QR킷</title>
+  <meta name="description" content="QR코드 색상을 자유롭게 변경하고 로고·이미지를 삽입해 브랜드에 맞는 QR코드를 만드세요. 무료 온라인 QR코드 커스터마이징 도구.">
+  <meta name="keywords" content="QR코드커스터마이징,컬러QR코드,로고QR코드,QR색상변경,QR로고삽입,예쁜QR코드,브랜드QR,QR코드디자인">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/qr-custom.html">
+  <!-- Open Graph -->
+  <meta property="og:title" content="QR코드 커스터마이징 — 색상·로고 삽입 | QR킷">
+  <meta property="og:description" content="QR코드 색상을 변경하고 로고를 삽입해 브랜드에 맞는 QR코드를 만드세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/qr-custom.html">
+  <meta property="og:locale" content="ko_KR">
+  <!-- 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "QR코드 커스터마이징 도구",
+    "url": "https://qrkit.wooahouse.com/qr-custom.html",
+    "description": "QR코드 색상을 자유롭게 변경하고 로고·이미지를 삽입해 브랜드에 맞는 QR코드를 만드세요.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+    "inLanguage": "ko"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="QR킷">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .color-input-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .color-input-group input[type="color"] {
+      width: 44px;
+      height: 36px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      padding: 2px;
+      background: white;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .color-input-group input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-input-group input[type="color"]::-webkit-color-swatch { border: none; border-radius: 5px; }
+    .color-input-group input[type="text"] {
+      width: 100px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: var(--text);
+      background: #F9FAFB;
+      outline: none;
+      text-transform: uppercase;
+    }
+    .color-input-group input[type="text"]:focus { border-color: var(--primary); background: white; }
+    .range-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .range-wrap input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+    .range-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(16,185,129,0.3);
+    }
+    .range-wrap input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: none;
+      cursor: pointer;
+    }
+    .range-value {
+      min-width: 52px;
+      text-align: right;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .logo-upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 12px;
+    }
+    .logo-upload-zone:hover { border-color: var(--primary); background: var(--primary-light); }
+    .logo-upload-zone.has-logo {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .logo-preview-small {
+      max-width: 60px;
+      max-height: 60px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .mask-btns {
+      display: flex;
+      gap: 8px;
+    }
+    .mask-btn {
+      padding: 6px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      background: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      color: var(--text);
+    }
+    .mask-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .mask-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .warning-box {
+      padding: 10px 14px;
+      background: #FEF3C7;
+      border: 1px solid #F59E0B;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      color: #92400E;
+      margin-top: 10px;
+      display: none;
+    }
+    .qr-canvas-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    #qrCanvas {
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">QR킷 <span>| QRKit</span></a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">Linker Services</span>
+  <div class="our-sites-links">
+    <a href="https://linker.wooahouse.com/" target="_blank" rel="noopener">🔗 Linker</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 PDFKit</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ ImageKit</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://steamkit.wooahouse.com/" target="_blank" rel="noopener">🎮 SteamKit</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
+  </div>
+</div>
+
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">QR킷</a>
+    <span>›</span>
+    <span>QR코드 커스터마이징</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🎨</span>
+    <h1>QR코드 커스터마이징</h1>
+    <p>색상을 변경하고 로고를 삽입해 나만의 QR코드를 만드세요</p>
+  </div>
+
+  <!-- Input -->
+  <div class="input-panel">
+    <label for="qrInput">URL 또는 텍스트 입력</label>
+    <input type="text" id="qrInput" placeholder="https://example.com 또는 텍스트 입력" autocomplete="off">
+  </div>
+
+  <!-- Options -->
+  <div class="options-panel">
+    <div class="options-title">커스터마이징 옵션</div>
+
+    <!-- Size -->
+    <div class="option-row">
+      <span class="option-label">QR 크기</span>
+      <div class="option-control">
+        <div class="range-wrap">
+          <input type="range" id="qrSize" min="200" max="600" value="300" step="10">
+          <span class="range-value" id="qrSizeVal">300px</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Foreground Color -->
+    <div class="option-row">
+      <span class="option-label">전경색 (QR 색상)</span>
+      <div class="option-control">
+        <div class="color-input-group">
+          <input type="color" id="fgColorPicker" value="#000000">
+          <input type="text" id="fgColorHex" value="#000000" maxlength="7">
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Color -->
+    <div class="option-row">
+      <span class="option-label">배경색</span>
+      <div class="option-control">
+        <div class="color-input-group">
+          <input type="color" id="bgColorPicker" value="#ffffff">
+          <input type="text" id="bgColorHex" value="#FFFFFF" maxlength="7">
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;cursor:pointer;margin-bottom:0;">
+            <input type="checkbox" id="transparentBg" style="width:16px;height:16px;accent-color:var(--primary);cursor:pointer;">
+            투명
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Correction -->
+    <div class="option-row">
+      <span class="option-label">오류 수정 레벨</span>
+      <div class="option-control">
+        <select id="ecLevel">
+          <option value="L">L (7%) - 기본</option>
+          <option value="M">M (15%)</option>
+          <option value="Q">Q (25%)</option>
+          <option value="H" selected>H (30%) - 로고 삽입 시 권장</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Corner Style -->
+    <div class="option-row">
+      <span class="option-label">모서리 스타일</span>
+      <div class="option-control">
+        <div class="mask-btns">
+          <button class="mask-btn active" data-style="square">기본</button>
+          <button class="mask-btn" data-style="round">둥글게</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo -->
+  <div class="options-panel">
+    <div class="options-title">로고 삽입 (선택)</div>
+    <div class="logo-upload-zone" id="logoZone">
+      <div id="logoPlaceholder">
+        <div style="font-size:2rem;margin-bottom:6px;">📎</div>
+        <div style="font-size:0.85rem;color:var(--text-light);">로고 이미지 선택 (JPG, PNG, SVG)</div>
+      </div>
+      <div id="logoPreviewWrap" style="display:none;">
+        <img id="logoPreview" class="logo-preview-small" alt="로고 미리보기">
+        <div style="font-size:0.78rem;color:var(--primary);font-weight:600;">로고가 적용됩니다</div>
+      </div>
+      <input type="file" id="logoInput" accept="image/*" hidden>
+    </div>
+
+    <div id="logoOptions" style="display:none;">
+      <div class="option-row">
+        <span class="option-label">로고 크기</span>
+        <div class="option-control">
+          <div class="range-wrap">
+            <input type="range" id="logoSize" min="10" max="30" value="20" step="1">
+            <span class="range-value" id="logoSizeVal">20%</span>
+          </div>
+        </div>
+      </div>
+      <div class="option-row">
+        <span class="option-label">로고 모양</span>
+        <div class="option-control">
+          <div class="mask-btns">
+            <button class="mask-btn active" data-logo-mask="square">정사각형</button>
+            <button class="mask-btn" data-logo-mask="circle">원형</button>
+          </div>
+        </div>
+      </div>
+      <div class="option-row">
+        <span class="option-label">로고 패딩</span>
+        <div class="option-control">
+          <div class="range-wrap">
+            <input type="range" id="logoPadding" min="0" max="20" value="6" step="1">
+            <span class="range-value" id="logoPaddingVal">6px</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-copy" onclick="removeLogo()" style="margin-top:8px;">로고 제거</button>
+    </div>
+
+    <div class="warning-box" id="logoWarning">
+      로고가 클수록 QR 인식률이 낮아집니다. H 오류 수정 레벨을 권장합니다.
+    </div>
+  </div>
+
+  <!-- Preview -->
+  <div class="qr-preview-panel">
+    <div class="qr-preview-label">QR코드 미리보기</div>
+    <div id="qrPreview">
+      <div class="qr-placeholder">
+        <span class="qr-placeholder-icon">📱</span>
+        <span>URL 또는 텍스트를 입력하면 QR코드가 생성됩니다</span>
+      </div>
+    </div>
+    <div class="qr-canvas-wrap" id="canvasWrap" style="display:none;">
+      <canvas id="qrCanvas"></canvas>
+    </div>
+    <div class="btn-group">
+      <button id="downloadBtn" class="btn-primary" disabled>PNG 다운로드</button>
+      <button id="downloadSvgBtn" class="btn-secondary" disabled>SVG 다운로드</button>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 QR코드의 색상을 더 다양하게 탐색하려면 <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">ColorKit에서 색상 도구 사용하기 →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 QR킷. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  // State
+  let logoImg = null;
+  let logoMask = 'square';
+  let cornerStyle = 'square';
+  let debounceTimer = null;
+
+  // Elements
+  const qrInput = document.getElementById('qrInput');
+  const qrSizeSlider = document.getElementById('qrSize');
+  const qrSizeVal = document.getElementById('qrSizeVal');
+  const fgPicker = document.getElementById('fgColorPicker');
+  const fgHex = document.getElementById('fgColorHex');
+  const bgPicker = document.getElementById('bgColorPicker');
+  const bgHex = document.getElementById('bgColorHex');
+  const transparentBg = document.getElementById('transparentBg');
+  const ecLevel = document.getElementById('ecLevel');
+  const logoSizeSlider = document.getElementById('logoSize');
+  const logoSizeVal = document.getElementById('logoSizeVal');
+  const logoPaddingSlider = document.getElementById('logoPadding');
+  const logoPaddingVal = document.getElementById('logoPaddingVal');
+  const canvas = document.getElementById('qrCanvas');
+  const ctx = canvas.getContext('2d');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const downloadSvgBtn = document.getElementById('downloadSvgBtn');
+  const qrPreview = document.getElementById('qrPreview');
+  const canvasWrap = document.getElementById('canvasWrap');
+
+  // Sync color pickers with hex inputs
+  fgPicker.addEventListener('input', () => { fgHex.value = fgPicker.value.toUpperCase(); scheduleGenerate(); });
+  fgHex.addEventListener('input', () => {
+    let v = fgHex.value.trim();
+    if (!v.startsWith('#')) v = '#' + v;
+    if (/^#[0-9A-Fa-f]{6}$/.test(v)) { fgPicker.value = v; scheduleGenerate(); }
+  });
+  bgPicker.addEventListener('input', () => { bgHex.value = bgPicker.value.toUpperCase(); scheduleGenerate(); });
+  bgHex.addEventListener('input', () => {
+    let v = bgHex.value.trim();
+    if (!v.startsWith('#')) v = '#' + v;
+    if (/^#[0-9A-Fa-f]{6}$/.test(v)) { bgPicker.value = v; scheduleGenerate(); }
+  });
+
+  // Range sliders
+  qrSizeSlider.addEventListener('input', () => { qrSizeVal.textContent = qrSizeSlider.value + 'px'; scheduleGenerate(); });
+  logoSizeSlider.addEventListener('input', () => {
+    logoSizeVal.textContent = logoSizeSlider.value + '%';
+    checkLogoWarning();
+    scheduleGenerate();
+  });
+  logoPaddingSlider.addEventListener('input', () => { logoPaddingVal.textContent = logoPaddingSlider.value + 'px'; scheduleGenerate(); });
+
+  // Other inputs
+  qrInput.addEventListener('input', scheduleGenerate);
+  transparentBg.addEventListener('change', scheduleGenerate);
+  ecLevel.addEventListener('change', scheduleGenerate);
+
+  // Corner style
+  document.querySelectorAll('[data-style]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-style]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      cornerStyle = this.dataset.style;
+      scheduleGenerate();
+    });
+  });
+
+  // Logo mask
+  document.querySelectorAll('[data-logo-mask]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-logo-mask]').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      logoMask = this.dataset.logoMask;
+      scheduleGenerate();
+    });
+  });
+
+  // Logo upload
+  const logoZone = document.getElementById('logoZone');
+  const logoInput = document.getElementById('logoInput');
+  logoZone.addEventListener('click', () => logoInput.click());
+  logoInput.addEventListener('change', () => {
+    if (logoInput.files.length) loadLogo(logoInput.files[0]);
+  });
+
+  function loadLogo(file) {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        logoImg = img;
+        document.getElementById('logoPreview').src = e.target.result;
+        document.getElementById('logoPlaceholder').style.display = 'none';
+        document.getElementById('logoPreviewWrap').style.display = 'block';
+        document.getElementById('logoOptions').style.display = 'block';
+        logoZone.classList.add('has-logo');
+        checkLogoWarning();
+        scheduleGenerate();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  window.removeLogo = function() {
+    logoImg = null;
+    logoInput.value = '';
+    document.getElementById('logoPlaceholder').style.display = 'block';
+    document.getElementById('logoPreviewWrap').style.display = 'none';
+    document.getElementById('logoOptions').style.display = 'none';
+    logoZone.classList.remove('has-logo');
+    document.getElementById('logoWarning').style.display = 'none';
+    scheduleGenerate();
+  };
+
+  function checkLogoWarning() {
+    const warn = document.getElementById('logoWarning');
+    if (logoImg && parseInt(logoSizeSlider.value) > 22) {
+      warn.style.display = 'block';
+    } else {
+      warn.style.display = 'none';
+    }
+  }
+
+  function scheduleGenerate() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(generateQR, 150);
+  }
+
+  function generateQR() {
+    const text = qrInput.value.trim();
+    if (!text) {
+      qrPreview.style.display = 'block';
+      canvasWrap.style.display = 'none';
+      downloadBtn.disabled = true;
+      downloadSvgBtn.disabled = true;
+      return;
+    }
+
+    const size = parseInt(qrSizeSlider.value);
+    const fg = fgPicker.value;
+    const bg = transparentBg.checked ? 'rgba(0,0,0,0)' : bgPicker.value;
+    const ecMap = { L: 0, M: 1, Q: 2, H: 3 }; // QRCode lib uses numeric
+
+    // Generate QR to a temp canvas first
+    const tempCanvas = document.createElement('canvas');
+    QRCode.toCanvas(tempCanvas, text, {
+      width: size,
+      margin: 2,
+      color: {
+        dark: fg,
+        light: transparentBg.checked ? '#00000000' : bgPicker.value
+      },
+      errorCorrectionLevel: ecLevel.value
+    }, function(error) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      // Apply corner rounding if needed
+      canvas.width = size;
+      canvas.height = size;
+      ctx.clearRect(0, 0, size, size);
+
+      if (cornerStyle === 'round') {
+        // Draw rounded QR
+        const r = 8;
+        ctx.beginPath();
+        ctx.roundRect(0, 0, size, size, r);
+        ctx.clip();
+      }
+
+      ctx.drawImage(tempCanvas, 0, 0, size, size);
+
+      // Draw logo
+      if (logoImg) {
+        const logoPercent = parseInt(logoSizeSlider.value) / 100;
+        const padding = parseInt(logoPaddingSlider.value);
+        const logoDrawSize = size * logoPercent;
+        const totalSize = logoDrawSize + padding * 2;
+        const x = (size - totalSize) / 2;
+        const y = (size - totalSize) / 2;
+
+        // White padding background
+        ctx.save();
+        if (logoMask === 'circle') {
+          ctx.beginPath();
+          ctx.arc(size / 2, size / 2, totalSize / 2, 0, Math.PI * 2);
+          ctx.fillStyle = transparentBg.checked ? '#FFFFFF' : bgPicker.value;
+          ctx.fill();
+          ctx.clip();
+        } else {
+          ctx.fillStyle = transparentBg.checked ? '#FFFFFF' : bgPicker.value;
+          ctx.fillRect(x, y, totalSize, totalSize);
+        }
+
+        // Draw logo image
+        const logoX = x + padding;
+        const logoY = y + padding;
+        if (logoMask === 'circle') {
+          ctx.beginPath();
+          ctx.arc(size / 2, size / 2, logoDrawSize / 2, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(logoImg, size / 2 - logoDrawSize / 2, size / 2 - logoDrawSize / 2, logoDrawSize, logoDrawSize);
+        } else {
+          ctx.drawImage(logoImg, logoX, logoY, logoDrawSize, logoDrawSize);
+        }
+        ctx.restore();
+      }
+
+      qrPreview.style.display = 'none';
+      canvasWrap.style.display = 'flex';
+      downloadBtn.disabled = false;
+      downloadSvgBtn.disabled = false;
+    });
+  }
+
+  // Download PNG
+  downloadBtn.addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.download = 'qrcode-custom.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  // Download SVG (basic - wraps the PNG in SVG)
+  downloadSvgBtn.addEventListener('click', function() {
+    const dataUrl = canvas.toDataURL('image/png');
+    const w = canvas.width;
+    const h = canvas.height;
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+  <image width="${w}" height="${h}" xlink:href="${dataUrl}"/>
+</svg>`;
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = 'qrcode-custom.svg';
+    link.href = url;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+})();
+</script>
+</body>
+</html>
