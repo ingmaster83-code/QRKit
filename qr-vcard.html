@@ -12,6 +12,42 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="QR킷">
   <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "명함 QR코드 생성기",
+    "url": "https://qrkit.wooahouse.com/qr-vcard.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "명함 QR코드에 어떤 정보를 담을 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "이름, 전화번호, 이메일, 회사명, 직책, 주소, 웹사이트 등 vCard 표준 정보를 담을 수 있습니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "스마트폰에서 스캔하면 연락처에 바로 추가되나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, QR코드를 스캔하면 연락처 저장 화면이 자동으로 나타납니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "사진도 QR코드에 포함할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "현재는 텍스트 기반 정보만 지원합니다. 사진 포함은 지원되지 않습니다."}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -40,6 +76,8 @@
     <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
     <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
     <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
+    <a href="https://steamkit.wooahouse.com/" target="_blank" rel="noopener">🎮 SteamKit</a>
     <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
     <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
     <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
@@ -145,6 +183,24 @@
     <strong>📱 사용 방법</strong><br>
     생성된 QR코드를 명함에 인쇄하거나 공유하면, 상대방이 스마트폰 카메라로 스캔해서 연락처를 바로 저장할 수 있습니다.
   </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 명함 QR코드에 어떤 정보를 담을 수 있나요?</h3>
+        <p style="color:#555;margin:0;">이름, 전화번호, 이메일, 회사명, 직책, 주소, 웹사이트 등 vCard 표준 정보를 담을 수 있습니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 스마트폰에서 스캔하면 연락처에 바로 추가되나요?</h3>
+        <p style="color:#555;margin:0;">네, QR코드를 스캔하면 연락처 저장 화면이 자동으로 나타납니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 사진도 QR코드에 포함할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">현재는 텍스트 기반 정보만 지원합니다. 사진 포함은 지원되지 않습니다.</p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <footer>

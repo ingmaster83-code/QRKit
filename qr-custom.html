@@ -34,6 +34,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="QR킷">
   <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "QR코드에 로고나 이미지를 삽입할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, 로고 이미지를 업로드하면 QR코드 중앙에 자동으로 삽입됩니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "로고를 삽입해도 QR코드가 인식되나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "오류 수정 기능 덕분에 중앙 일부가 가려져도 QR코드가 인식됩니다. 단, 로고 크기가 너무 크면 인식률이 낮아집니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "색상도 변경할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, QR코드 전경색과 배경색을 자유롭게 설정할 수 있습니다."}
+      }
+    ]
+  }
+  </script>
   <style>
     .color-input-group {
       display: flex;
@@ -191,13 +214,13 @@
     <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
     <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
     <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
     <a href="https://steamkit.wooahouse.com/" target="_blank" rel="noopener">🎮 SteamKit</a>
     <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
     <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
     <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
     <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ PCTools</a>
     <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 VSKit</a>
-    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
   </div>
 </div>
 
@@ -358,6 +381,24 @@
   <div class="cross-link-tip">
     💡 QR코드의 색상을 더 다양하게 탐색하려면 <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">ColorKit에서 색상 도구 사용하기 →</a>
   </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. QR코드에 로고나 이미지를 삽입할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">네, 로고 이미지를 업로드하면 QR코드 중앙에 자동으로 삽입됩니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 로고를 삽입해도 QR코드가 인식되나요?</h3>
+        <p style="color:#555;margin:0;">오류 수정 기능 덕분에 중앙 일부가 가려져도 QR코드가 인식됩니다. 단, 로고 크기가 너무 크면 인식률이 낮아집니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 색상도 변경할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">네, QR코드 전경색과 배경색을 자유롭게 설정할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <footer>

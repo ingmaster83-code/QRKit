@@ -19,6 +19,42 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="QR킷">
   <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "바코드 생성기",
+    "url": "https://qrkit.wooahouse.com/barcode-generator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "어떤 바코드 형식을 지원하나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "CODE128, EAN-13, EAN-8, UPC-A, CODE39 등 주요 바코드 형식을 지원합니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "생성한 바코드를 인쇄할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, PNG 또는 SVG 형식으로 다운로드하여 고품질 인쇄가 가능합니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "바코드 높이와 너비를 조절할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, 바코드의 크기와 텍스트 표시 여부를 설정할 수 있습니다."}
+      }
+    ]
+  }
+  </script>
   <style>
     .barcode-preview-wrap {
       background: white;
@@ -94,6 +130,8 @@
     <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
     <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
     <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
+    <a href="https://steamkit.wooahouse.com/" target="_blank" rel="noopener">🎮 SteamKit</a>
     <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
     <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
     <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
@@ -178,6 +216,24 @@
   <div class="cross-link-tip">
     💡 QR코드도 생성하고 싶다면? <a href="qr-url.html">URL QR코드 생성하기 →</a>
   </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어떤 바코드 형식을 지원하나요?</h3>
+        <p style="color:#555;margin:0;">CODE128, EAN-13, EAN-8, UPC-A, CODE39 등 주요 바코드 형식을 지원합니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 생성한 바코드를 인쇄할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">네, PNG 또는 SVG 형식으로 다운로드하여 고품질 인쇄가 가능합니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 바코드 높이와 너비를 조절할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">네, 바코드의 크기와 텍스트 표시 여부를 설정할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <footer>

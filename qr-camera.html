@@ -19,6 +19,42 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="QR킷">
   <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "카메라 QR코드 읽기",
+    "url": "https://qrkit.wooahouse.com/qr-camera.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "카메라 접근 권한을 허용해야 하나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, 브라우저에서 카메라 사용 권한을 허용해야 QR코드 스캔이 가능합니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "어두운 환경에서도 스캔이 되나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "카메라 품질에 따라 다르지만, 충분한 조명이 있어야 더 정확하게 인식됩니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "iOS Safari에서도 작동하나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "iOS 14.3 이상의 Safari에서 카메라 접근이 지원됩니다."}
+      }
+    ]
+  }
+  </script>
   <style>
     .camera-wrap {
       position: relative;
@@ -127,6 +163,8 @@
     <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
     <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
     <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
+    <a href="https://steamkit.wooahouse.com/" target="_blank" rel="noopener">🎮 SteamKit</a>
     <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
     <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
     <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
@@ -185,6 +223,24 @@
   <div class="cross-link-tip">
     💡 이미지 파일로 QR코드를 읽으려면? <a href="qr-reader.html">QR코드 읽기 (파일 업로드) →</a>
   </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 카메라 접근 권한을 허용해야 하나요?</h3>
+        <p style="color:#555;margin:0;">네, 브라우저에서 카메라 사용 권한을 허용해야 QR코드 스캔이 가능합니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어두운 환경에서도 스캔이 되나요?</h3>
+        <p style="color:#555;margin:0;">카메라 품질에 따라 다르지만, 충분한 조명이 있어야 더 정확하게 인식됩니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. iOS Safari에서도 작동하나요?</h3>
+        <p style="color:#555;margin:0;">iOS 14.3 이상의 Safari에서 카메라 접근이 지원됩니다.</p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <footer>

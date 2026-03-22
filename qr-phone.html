@@ -19,6 +19,42 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="QR킷">
   <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "전화번호 QR코드 생성기",
+    "url": "https://qrkit.wooahouse.com/qr-phone.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "QR코드를 스캔하면 바로 전화가 걸리나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "스캔 후 전화 앱이 열리며 번호가 입력된 상태로 표시됩니다. 바로 걸기 버튼을 눌러야 연결됩니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "국가 코드도 포함할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, +82 등 국제 전화 코드를 포함하여 생성할 수 있습니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "SMS QR코드도 만들 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "전화번호 QR코드 외에 SMS 형식으로도 생성할 수 있습니다."}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -47,6 +83,8 @@
     <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 ColorKit</a>
     <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 TextKit</a>
     <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 QRKit</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 CalcKit</a>
+    <a href="https://steamkit.wooahouse.com/" target="_blank" rel="noopener">🎮 SteamKit</a>
     <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 ChromeKit</a>
     <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 FontKit</a>
     <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 MacTools</a>
@@ -126,6 +164,24 @@
   <div class="cross-link-tip">
     💡 명함에 QR코드를 넣고 싶다면? <a href="qr-vcard.html">명함 QR코드 생성하기 →</a>
   </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. QR코드를 스캔하면 바로 전화가 걸리나요?</h3>
+        <p style="color:#555;margin:0;">스캔 후 전화 앱이 열리며 번호가 입력된 상태로 표시됩니다. 바로 걸기 버튼을 눌러야 연결됩니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 국가 코드도 포함할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">네, +82 등 국제 전화 코드를 포함하여 생성할 수 있습니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. SMS QR코드도 만들 수 있나요?</h3>
+        <p style="color:#555;margin:0;">전화번호 QR코드 외에 SMS 형식으로도 생성할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <footer>
