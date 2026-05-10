@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR코드·바코드 이미지 읽기 — 무료 온라인 스캐너 | WooaQR</title>
+  <meta name="description" content="이미지 파일에서 QR코드와 바코드(EAN-13, CODE128, QR코드 등)를 자동으로 인식합니다. 무료, 회원가입 불필요.">
+  <meta name="keywords" content="QR코드읽기, 바코드읽기, 바코드스캔, EAN-13, CODE128, QR코드디코더, 이미지바코드인식, 무료바코드스캐너">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/qr-barcode-reader.html">
+  <meta property="og:title" content="QR코드·바코드 이미지 읽기 — 무료 온라인 스캐너 | WooaQR">
+  <meta property="og:description" content="이미지 파일에서 QR코드와 바코드(EAN-13, CODE128, QR코드 등)를 자동으로 인식합니다. 무료, 회원가입 불필요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/qr-barcode-reader.html">
+  <meta property="og:locale" content="ko_KR">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WooaQR">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR코드·바코드 이미지 읽기",
+    "url": "https://qrkit.wooahouse.com/qr-barcode-reader.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "어떤 형식의 바코드를 읽을 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "QR코드, EAN-13, EAN-8, CODE-128, CODE-39, UPC-A, Data Matrix, PDF-417 등 주요 바코드 형식을 모두 지원합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "인식이 잘 안 될 때는?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "이미지가 흐리거나 빛 반사가 있으면 인식률이 낮아집니다. 선명하고 평평하게 찍은 이미지를 사용하세요."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "이미지가 서버에 저장되나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "아니요, 모든 처리가 브라우저에서만 이루어집니다. 이미지는 서버로 전송되지 않습니다."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    .drop-zone {
+      border: 2px dashed #10B981;
+      border-radius: 12px;
+      padding: 40px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: white;
+      margin-bottom: 20px;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #059669;
+      background: #f0fdf4;
+    }
+    .drop-zone-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .drop-zone-text { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .drop-zone-sub { font-size: 0.85rem; color: var(--text-light); }
+    .drop-zone input[type="file"] { display: none; }
+
+    .preview-wrap {
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .preview-wrap img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+    }
+
+    .status-bar {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: #065f46;
+    }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #bbf7d0;
+      border-top-color: #10B981;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result-panel {
+      display: none;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .result-panel.success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+    .result-panel.error {
+      background: #fff7f7;
+      border: 1px solid #fecaca;
+    }
+    .result-format {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #10B981;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .result-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #065f46;
+      margin-bottom: 8px;
+    }
+    .result-text {
+      font-size: 1rem;
+      color: var(--text);
+      word-break: break-all;
+      line-height: 1.6;
+      background: white;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #d1fae5;
+      margin-bottom: 14px;
+    }
+    .result-error {
+      color: #b91c1c;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .supported-formats {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .supported-formats h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .format-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .format-tag {
+      font-size: 0.82rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaQR</a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 WooaChrome</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+  </div>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">WooaQR</a>
+    <span>›</span>
+    <span>QR·바코드 이미지 읽기</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🔍</span>
+    <h1>QR코드·바코드 이미지 읽기</h1>
+    <p>이미지 파일을 업로드하면 QR코드와 바코드를 자동으로 인식합니다. EAN-13, CODE-128 등 다양한 바코드 형식을 지원하며, 모든 처리는 브라우저에서만 이루어집니다.</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <div class="drop-zone-text">이미지를 여기에 드래그하거나 클릭해서 선택</div>
+    <div class="drop-zone-sub">PNG, JPG, GIF, WebP, BMP 등 이미지 파일 지원</div>
+    <input type="file" id="fileInput" accept="image/*">
+  </div>
+
+  <div class="preview-wrap" id="previewWrap">
+    <img id="previewImg" alt="업로드된 이미지">
+  </div>
+
+  <div class="status-bar" id="statusBar">
+    <div class="spinner"></div>
+    <span>🔍 분석 중...</span>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div id="resultContent"></div>
+    <div class="btn-group" id="resultBtns" style="display:none;">
+      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 링크 열기</button>
+    </div>
+  </div>
+
+  <!-- AdSense -->
+  <ins class="adsbygoogle"
+       style="display:block;margin:20px 0;"
+       data-ad-client="ca-pub-6464921081676309"
+       data-ad-slot="1419180025"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="supported-formats">
+    <h2>지원하는 형식</h2>
+    <div class="format-tags">
+      <span class="format-tag">QR코드</span>
+      <span class="format-tag">EAN-13</span>
+      <span class="format-tag">EAN-8</span>
+      <span class="format-tag">CODE-128</span>
+      <span class="format-tag">CODE-39</span>
+      <span class="format-tag">UPC-A</span>
+      <span class="format-tag">Data Matrix</span>
+      <span class="format-tag">PDF-417</span>
+      <span class="format-tag">Aztec</span>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 QR코드만 빠르게 읽으려면? <a href="qr-reader.html">QR코드 읽기 →</a>
+  </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어떤 형식의 바코드를 읽을 수 있나요?</h3>
+        <p style="color:#555;margin:0;">QR코드, EAN-13, EAN-8, CODE-128, CODE-39, UPC-A, Data Matrix, PDF-417 등 주요 바코드 형식을 모두 지원합니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 인식이 잘 안 될 때는?</h3>
+        <p style="color:#555;margin:0;">이미지가 흐리거나 빛 반사가 있으면 인식률이 낮아집니다. 선명하고 평평하게 찍은 이미지를 사용하세요.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 이미지가 서버에 저장되나요?</h3>
+        <p style="color:#555;margin:0;">아니요, 모든 처리가 브라우저에서만 이루어집니다. 이미지는 서버로 전송되지 않습니다.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <div class="ad-card-label">광고</div>
+    <div class="ad-card-placeholder">📢<br>광고가 표시됩니다</div>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 WooaQR. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/@zxing/library@0.19.1/umd/index.min.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  const dropZone    = document.getElementById('dropZone');
+  const fileInput   = document.getElementById('fileInput');
+  const previewWrap = document.getElementById('previewWrap');
+  const previewImg  = document.getElementById('previewImg');
+  const statusBar   = document.getElementById('statusBar');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultContent = document.getElementById('resultContent');
+  const resultBtns  = document.getElementById('resultBtns');
+  const copyBtn     = document.getElementById('copyBtn');
+  const openBtn     = document.getElementById('openBtn');
+
+  const formatNames = {
+    'QR_CODE':     'QR코드',
+    'EAN_13':      'EAN-13',
+    'EAN_8':       'EAN-8',
+    'CODE_128':    'CODE-128',
+    'CODE_39':     'CODE-39',
+    'UPC_A':       'UPC-A',
+    'UPC_E':       'UPC-E',
+    'DATA_MATRIX': 'Data Matrix',
+    'PDF_417':     'PDF-417',
+    'AZTEC':       'Aztec',
+    'ITF':         'ITF',
+    'CODABAR':     'Codabar'
+  };
+
+  let lastResult = '';
+
+  // Click to open file dialog
+  dropZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => {
+    if (e.target.files[0]) processFile(e.target.files[0]);
+  });
+
+  // Drag and drop
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) processFile(file);
+  });
+
+  function processFile(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        // Show preview
+        previewImg.src = e.target.result;
+        previewWrap.style.display = 'block';
+
+        // Show loading state
+        statusBar.style.display = 'flex';
+        resultPanel.style.display = 'none';
+        resultBtns.style.display = 'none';
+        lastResult = '';
+
+        // Decode with ZXing
+        decodeImage(img);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function decodeImage(imgElement) {
+    try {
+      const codeReader = new ZXing.BrowserMultiFormatReader();
+      const result = await codeReader.decodeFromImageElement(imgElement);
+      const text = result.getText();
+      const formatKey = String(result.getBarcodeFormat());
+      const formatLabel = formatNames[formatKey] || formatKey;
+
+      lastResult = text;
+
+      statusBar.style.display = 'none';
+      resultPanel.className = 'result-panel success';
+      resultPanel.style.display = 'block';
+
+      const isUrl = /^https?:\/\//i.test(text);
+      resultContent.innerHTML =
+        '<span class="result-format">' + escapeHtml(formatLabel) + '</span>' +
+        '<div class="result-label">인식 결과</div>' +
+        '<div class="result-text">' + escapeHtml(text) + '</div>';
+
+      resultBtns.style.display = 'flex';
+      openBtn.style.display = isUrl ? '' : 'none';
+
+    } catch (err) {
+      statusBar.style.display = 'none';
+      resultPanel.className = 'result-panel error';
+      resultPanel.style.display = 'block';
+      resultContent.innerHTML =
+        '<div class="result-error">⚠️ 인식할 수 없습니다. 이미지가 선명한지 확인해주세요.</div>';
+      resultBtns.style.display = 'none';
+      lastResult = '';
+    }
+  }
+
+  copyBtn.addEventListener('click', function() {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult).then(() => {
+      flash(copyBtn, '✅ 복사됨!', '📋 결과 복사');
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = lastResult;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      flash(copyBtn, '✅ 복사됨!', '📋 결과 복사');
+    });
+  });
+
+  openBtn.addEventListener('click', function() {
+    if (lastResult) window.open(lastResult, '_blank', 'noopener');
+  });
+
+  function flash(btn, tempText, origText) {
+    btn.textContent = tempText;
+    setTimeout(() => { btn.textContent = origText; }, 2000);
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+})();
+</script>
+</body>
+</html>
