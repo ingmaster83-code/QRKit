@@ -1,0 +1,488 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR 일정 생성기 — 캘린더 일정을 QR코드로 스마트폰에 저장 무료 | WooaQR</title>
+  <meta name="description" content="이벤트 제목·시작일시·종료일시·장소·설명을 입력하면 iCalendar(VCALENDAR) QR코드가 생성됩니다. 스캔하면 스마트폰 캘린더에 바로 일정이 추가됩니다. 무료 온라인 QR 일정 생성기.">
+  <meta name="keywords" content="QR일정,캘린더QR,일정QR코드,iCalendar,VCALENDAR,QR코드일정,스마트폰캘린더,QR이벤트,WooaQR">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/qr-calendar.html">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <!-- Open Graph -->
+  <meta property="og:title" content="QR 일정 생성기 — 캘린더 일정을 QR코드로 | WooaQR">
+  <meta property="og:description" content="이벤트 정보 입력 시 iCalendar QR코드 생성. 스캔하면 스마트폰 캘린더에 자동 추가.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/qr-calendar.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://qrkit.wooahouse.com/og-image.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR 일정 생성기",
+    "url": "https://qrkit.wooahouse.com/qr-calendar.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "QR코드를 스캔하면 어떻게 되나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "스마트폰의 캘린더 앱이 열리며 입력한 이벤트 정보가 자동으로 채워집니다. 확인 후 저장하면 캘린더에 일정이 추가됩니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "어떤 캘린더 앱을 지원하나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "iCalendar(ICS) 표준 형식을 사용하므로 iOS 기본 캘린더, Google Calendar, Outlook 등 대부분의 캘린더 앱에서 인식됩니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "QR코드를 다운로드할 수 있나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, 생성된 QR코드를 PNG 이미지로 다운로드하여 인쇄하거나 공유할 수 있습니다."}
+      }
+    ]
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WooaQR">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text, #1F2937);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 9px 12px;
+      border: 1.5px solid var(--border, #E5E7EB);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      color: var(--text, #1F2937);
+      background: #F9FAFB;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary, #10B981);
+      background: #fff;
+    }
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .qr-output {
+      text-align: center;
+      padding: 20px;
+      background: #F9FAFB;
+      border-radius: 12px;
+      border: 1.5px dashed var(--border, #E5E7EB);
+      margin-top: 20px;
+      display: none;
+    }
+    .qr-output.visible { display: block; }
+    #qrContainer {
+      display: inline-block;
+      padding: 12px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 12px;
+    }
+    #qrContainer img, #qrContainer canvas {
+      display: block;
+    }
+    .qr-size-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .qr-size-btn {
+      padding: 5px 16px;
+      border: 1.5px solid var(--border, #E5E7EB);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      background: white;
+      color: var(--text, #1F2937);
+      transition: all 0.15s;
+    }
+    .qr-size-btn.active, .qr-size-btn:hover {
+      border-color: var(--primary, #10B981);
+      color: var(--primary, #10B981);
+    }
+    .qr-size-btn.active {
+      background: var(--primary, #10B981);
+      color: white;
+    }
+    .ics-preview {
+      margin-top: 16px;
+      background: #1F2937;
+      color: #A7F3D0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      text-align: left;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .btn-generate {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary, #10B981);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      margin-top: 4px;
+    }
+    .btn-generate:hover { filter: brightness(0.92); }
+    .btn-download {
+      padding: 10px 28px;
+      background: var(--primary, #10B981);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      display: inline-block;
+    }
+    .btn-download:hover { filter: brightness(0.92); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaQR</a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <a href="index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">전체 도구</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">📝 WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener" class="active">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+  </div>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">WooaQR</a>
+    <span>›</span>
+    <span>QR 일정 생성</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📅</span>
+    <h1>QR 일정 생성기 무료 온라인 — 캘린더 일정을 QR코드로 스마트폰에 저장</h1>
+    <p>이벤트 정보를 입력하면 iCalendar QR코드가 생성됩니다. 스캔하면 스마트폰 캘린더에 일정이 바로 추가됩니다</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">이벤트 정보 입력</div>
+
+    <!-- 제목 -->
+    <div class="form-group">
+      <label for="evTitle">이벤트 제목 <span style="color:#EF4444">*</span></label>
+      <input type="text" id="evTitle" placeholder="예: 팀 미팅, 생일 파티, 의사 예약" maxlength="100">
+    </div>
+
+    <!-- 시작·종료 일시 -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="evStart">시작 일시 <span style="color:#EF4444">*</span></label>
+        <input type="datetime-local" id="evStart">
+      </div>
+      <div class="form-group">
+        <label for="evEnd">종료 일시</label>
+        <input type="datetime-local" id="evEnd">
+      </div>
+    </div>
+
+    <!-- 장소 -->
+    <div class="form-group">
+      <label for="evLocation">장소</label>
+      <input type="text" id="evLocation" placeholder="예: 서울시 강남구 테헤란로 123, 회의실 A" maxlength="200">
+    </div>
+
+    <!-- 설명 -->
+    <div class="form-group">
+      <label for="evDesc">설명</label>
+      <textarea id="evDesc" placeholder="이벤트에 대한 추가 정보를 입력하세요..." maxlength="500"></textarea>
+    </div>
+
+    <!-- QR 크기 -->
+    <div class="form-group">
+      <label>QR코드 크기</label>
+      <div class="qr-size-tabs">
+        <button class="qr-size-btn" data-size="200" onclick="setSize(200, this)">소 (200px)</button>
+        <button class="qr-size-btn active" data-size="300" onclick="setSize(300, this)">중 (300px)</button>
+        <button class="qr-size-btn" data-size="400" onclick="setSize(400, this)">대 (400px)</button>
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generateQR()">📅 QR 일정 생성</button>
+  </div>
+
+  <!-- QR 출력 -->
+  <div class="qr-output" id="qrOutput">
+    <div style="font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:12px;">생성된 QR코드 — 스캔하면 캘린더에 일정이 추가됩니다</div>
+    <div id="qrContainer"></div>
+    <div style="margin-bottom:12px;">
+      <button class="btn-download" id="downloadBtn" onclick="downloadQR()">⬇ QR코드 다운로드 (PNG)</button>
+    </div>
+    <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:6px;">iCalendar 미리보기</div>
+    <div class="ics-preview" id="icsPreview"></div>
+  </div>
+
+  <div class="cross-link-tip" style="margin-top:24px;">
+    💡 명함 정보를 QR코드로 만들려면 <a href="qr-vcard.html">명함 QR코드 생성기</a>를 이용하세요.
+  </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. QR코드를 스캔하면 어떻게 되나요?</h3>
+        <p style="color:#555;margin:0;">스마트폰의 캘린더 앱이 열리며 입력한 이벤트 정보가 자동으로 채워집니다. 확인 후 저장하면 캘린더에 일정이 추가됩니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어떤 캘린더 앱을 지원하나요?</h3>
+        <p style="color:#555;margin:0;">iCalendar(ICS) 표준 형식을 사용하므로 iOS 기본 캘린더, Google Calendar, Outlook 등 대부분의 캘린더 앱에서 인식됩니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. QR코드를 인쇄하거나 공유할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">생성된 QR코드를 PNG 이미지로 다운로드하여 인쇄하거나 이미지 공유를 통해 다른 사람들과 공유할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="ad-card" style="margin-top:16px;overflow:hidden;">
+    <script src="https://ads-partners.coupang.com/g.js"></script>
+    <script>
+      new PartnersCoupang.G({"id":986943,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});
+    </script>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 WooaQR. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+        <a href="index.html">전체 도구</a>
+      </div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+
+<script>
+let currentSize = 300;
+let qrInstance = null;
+let lastIcsText = '';
+
+// 기본 날짜: 오늘 + 1시간 ~ +2시간
+(function setDefaultDates() {
+  const now = new Date();
+  now.setMinutes(0, 0, 0);
+  const start = new Date(now.getTime() + 3600000);
+  const end = new Date(now.getTime() + 7200000);
+  function fmt(d) {
+    const pad = n => String(n).padStart(2, '0');
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }
+  document.getElementById('evStart').value = fmt(start);
+  document.getElementById('evEnd').value = fmt(end);
+})();
+
+function setSize(size, btn) {
+  currentSize = size;
+  document.querySelectorAll('.qr-size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function dateToIcal(dtStr) {
+  // dtStr: 'YYYY-MM-DDTHH:mm'
+  if (!dtStr) return '';
+  return dtStr.replace(/[-:T]/g, '').slice(0, 15) + '00';
+}
+
+function buildIcs(title, start, end, location, desc) {
+  const uid = Date.now() + '@wooahouse.com';
+  const dtStamp = dateToIcal(new Date().toISOString().slice(0, 16));
+  const dtStart = dateToIcal(start);
+  const dtEnd = end ? dateToIcal(end) : '';
+
+  let ics = 'BEGIN:VCALENDAR\r\n';
+  ics += 'VERSION:2.0\r\n';
+  ics += 'PRODID:-//WooaQR//QR Calendar//KO\r\n';
+  ics += 'BEGIN:VEVENT\r\n';
+  ics += 'UID:' + uid + '\r\n';
+  ics += 'DTSTAMP:' + dtStamp + '\r\n';
+  ics += 'SUMMARY:' + escapeIcal(title) + '\r\n';
+  ics += 'DTSTART:' + dtStart + '\r\n';
+  if (dtEnd) ics += 'DTEND:' + dtEnd + '\r\n';
+  if (location.trim()) ics += 'LOCATION:' + escapeIcal(location) + '\r\n';
+  if (desc.trim()) ics += 'DESCRIPTION:' + escapeIcal(desc) + '\r\n';
+  ics += 'END:VEVENT\r\n';
+  ics += 'END:VCALENDAR';
+  return ics;
+}
+
+function escapeIcal(str) {
+  return str.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+}
+
+function generateQR() {
+  const title = document.getElementById('evTitle').value.trim();
+  const start = document.getElementById('evStart').value;
+  const end = document.getElementById('evEnd').value;
+  const location = document.getElementById('evLocation').value.trim();
+  const desc = document.getElementById('evDesc').value.trim();
+
+  if (!title) { alert('이벤트 제목을 입력하세요.'); document.getElementById('evTitle').focus(); return; }
+  if (!start) { alert('시작 일시를 선택하세요.'); document.getElementById('evStart').focus(); return; }
+  if (end && end < start) { alert('종료 일시는 시작 일시보다 늦어야 합니다.'); document.getElementById('evEnd').focus(); return; }
+
+  const ics = buildIcs(title, start, end, location, desc);
+  lastIcsText = ics;
+
+  // QR 컨테이너 초기화
+  const container = document.getElementById('qrContainer');
+  container.innerHTML = '';
+
+  // QRCode.js 생성
+  qrInstance = new QRCode(container, {
+    text: ics,
+    width: currentSize,
+    height: currentSize,
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  // ICS 미리보기 (표시용, \r\n → \n)
+  document.getElementById('icsPreview').textContent = ics.replace(/\r\n/g, '\n');
+
+  // 출력 표시
+  const output = document.getElementById('qrOutput');
+  output.classList.add('visible');
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function downloadQR() {
+  const container = document.getElementById('qrContainer');
+  const canvas = container.querySelector('canvas');
+  const img = container.querySelector('img');
+
+  if (canvas) {
+    const link = document.createElement('a');
+    link.download = 'QR_일정_' + (document.getElementById('evTitle').value.trim() || 'calendar') + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  } else if (img) {
+    // QRCode.js가 img를 생성한 경우 canvas로 변환
+    const cv = document.createElement('canvas');
+    cv.width = currentSize;
+    cv.height = currentSize;
+    const ctx = cv.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const link = document.createElement('a');
+    link.download = 'QR_일정_' + (document.getElementById('evTitle').value.trim() || 'calendar') + '.png';
+    link.href = cv.toDataURL('image/png');
+    link.click();
+  }
+}
+</script>
+
+<script src="js/pwa-install.js"></script>
+</body>
+</html>
