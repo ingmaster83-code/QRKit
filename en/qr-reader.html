@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9ZGENFSXWC');
+  </script>
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50" />
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Reader Free Online – Decode QR from Image | WooaQR</title>
+  <meta name="description" content="Upload a QR code image to read and decode its content instantly. Supports drag & drop. All processing in your browser — no upload to server.">
+  <meta name="keywords" content="QR code reader, QR code decoder, read QR code from image, QR scanner online, decode QR code, free QR reader">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/en/qr-reader.html">
+  <link rel="alternate" hreflang="ko" href="https://qrkit.wooahouse.com/qr-reader.html">
+  <link rel="alternate" hreflang="en" href="https://qrkit.wooahouse.com/en/qr-reader.html">
+  <link rel="alternate" hreflang="x-default" href="https://qrkit.wooahouse.com/en/qr-reader.html">
+  <meta property="og:title" content="QR Code Reader – Free Online | WooaQR">
+  <meta property="og:description" content="Upload a QR code image to decode its content. Free, no signup. 100% browser-based.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/en/qr-reader.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://qrkit.wooahouse.com/og-image.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WooaQR">
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Code Reader",
+    "url": "https://qrkit.wooahouse.com/en/qr-reader.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "USD"}
+  }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What image formats are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PNG, JPG, GIF, and WebP image files are all supported. Drag & drop or click to upload."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the QR code image sent to a server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All decoding is done locally in your browser. Your image is never uploaded anywhere."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of QR codes can be read?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "URL, text, WiFi, vCard, email, phone, SMS, and all other standard QR code types are supported."
+      }
+    }
+  ]
+}
+</script>
+  <style>
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: white;
+      margin-bottom: 20px;
+    }
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .drop-zone-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .drop-zone-text { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .drop-zone-sub { font-size: 0.85rem; color: var(--text-light); }
+    .drop-zone input[type="file"] { display: none; }
+    .preview-canvas-wrap {
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+    #previewCanvas {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+    }
+    .result-panel {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      display: none;
+    }
+    .result-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+    .result-text {
+      font-size: 1rem;
+      color: var(--text);
+      word-break: break-all;
+      line-height: 1.6;
+      background: var(--bg);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+    }
+    .result-error {
+      color: #EF4444;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo">WooaQR</a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">vCard QR</a>
+      <a href="qr-reader.html">QR Reader</a>
+      <a href="barcode-generator.html">Barcode</a>
+    </nav>
+    <div class="header-right">
+      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../qr-reader.html">KO</a>
+        <span>|</span>
+        <a href="qr-reader.html" class="active">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/en/" target="_blank" rel="noopener" class="active">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+  </div>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="../index.html">WooaQR</a>
+    <span>›</span>
+    <span>QR Code Reader</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🔍</span>
+    <h1>QR Code Reader – Free Online</h1>
+    <p>Upload a QR code image file to instantly read and decode its content. Supports drag & drop. All processing is local — no server upload.</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <div class="drop-zone-text">이미지를 여기에 드래그하거나 클릭해서 선택</div>
+    <div class="drop-zone-sub">PNG, JPG, GIF, WebP, BMP 등 이미지 파일 지원</div>
+    <input type="file" id="fileInput" accept="image/*">
+  </div>
+
+  <div class="preview-canvas-wrap" id="previewWrap">
+    <canvas id="previewCanvas"></canvas>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-label">해독 결과</div>
+    <div id="resultContent"></div>
+    <div class="btn-group" id="resultBtns" style="display:none;">
+      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 카메라로 실시간 스캔하려면? <a href="../qr-camera.html">카메라 QR 읽기 →</a>
+  </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What image formats are supported?</h3>
+        <p style="color:#555;margin:0;">PNG, JPG, GIF, and WebP image files are all supported. Drag & drop or click to upload.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Is the QR code image sent to a server?</h3>
+        <p style="color:#555;margin:0;">No. All decoding is done locally in your browser. Your image is never uploaded anywhere.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What types of QR codes can be read?</h3>
+        <p style="color:#555;margin:0;">URL, text, WiFi, vCard, email, phone, SMS, and all other standard QR code types are supported.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="ad-card" style="margin-top:16px;overflow:hidden;">    
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 WooaQR. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html">All Tools</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="../js/pwa-install.js"></script>
+<script>
+(function() {
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const previewWrap = document.getElementById('previewWrap');
+  const previewCanvas = document.getElementById('previewCanvas');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultContent = document.getElementById('resultContent');
+  const resultBtns = document.getElementById('resultBtns');
+  const copyBtn = document.getElementById('copyBtn');
+  const openBtn = document.getElementById('openBtn');
+
+  let lastResult = '';
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => {
+    if (e.target.files[0]) processFile(e.target.files[0]);
+  });
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) processFile(file);
+  });
+
+  function processFile(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const ctx = previewCanvas.getContext('2d');
+        previewCanvas.width = img.width;
+        previewCanvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        previewWrap.style.display = 'block';
+
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        const code = jsQR(imageData.data, img.width, img.height);
+
+        resultPanel.style.display = 'block';
+        if (code) {
+          lastResult = code.data;
+          resultContent.innerHTML = '<div class="result-text">' + escapeHtml(code.data) + '</div>';
+          resultBtns.style.display = 'flex';
+          // Show open button if URL
+          if (/^https?:\/\//i.test(code.data)) {
+            openBtn.style.display = '';
+          } else {
+            openBtn.style.display = 'none';
+          }
+        } else {
+          lastResult = '';
+          resultContent.innerHTML = '<div class="result-error">⚠️ QR코드를 찾을 수 없습니다. 더 선명한 이미지를 사용해보세요.</div>';
+          resultBtns.style.display = 'none';
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  copyBtn.addEventListener('click', function() {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult).then(() => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = lastResult;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    });
+  });
+
+  openBtn.addEventListener('click', function() {
+    if (lastResult) window.open(lastResult, '_blank', 'noopener');
+  });
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+})();
+</script>
+</body>
+</html>

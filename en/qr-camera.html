@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9ZGENFSXWC');
+  </script>
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50" />
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera QR Code Scanner Free Online – Real-time Webcam QR Reader | WooaQR</title>
+  <meta name="description" content="Scan QR codes in real time using your webcam or mobile camera. No app download needed. Works in browser. Free and instant QR code scanner.">
+  <meta name="keywords" content="camera QR scanner, webcam QR code reader, real-time QR scanner, QR code scan online, live QR reader, free camera QR">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/en/qr-camera.html">
+  <link rel="alternate" hreflang="ko" href="https://qrkit.wooahouse.com/qr-camera.html">
+  <link rel="alternate" hreflang="en" href="https://qrkit.wooahouse.com/en/qr-camera.html">
+  <link rel="alternate" hreflang="x-default" href="https://qrkit.wooahouse.com/en/qr-camera.html">
+  <meta property="og:title" content="Camera QR Code Scanner – Free Online | WooaQR">
+  <meta property="og:description" content="Scan QR codes with your webcam or camera in real time. Free, no app download, browser-based.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/en/qr-camera.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://qrkit.wooahouse.com/og-image.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WooaQR">
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Camera QR Code Scanner",
+    "url": "https://qrkit.wooahouse.com/en/qr-camera.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "USD"}
+  }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this work on a smartphone camera?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Open in a mobile browser and grant camera permission to scan QR codes in real time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is camera access required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Camera permission is needed to scan in real time. No data is sent to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of QR codes can be scanned?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All standard QR code types including URL, text, WiFi, vCard, email, and phone are supported."
+      }
+    }
+  ]
+}
+</script>
+  <style>
+    .camera-wrap {
+      position: relative;
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      aspect-ratio: 4/3;
+    }
+    #cameraVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    #scanCanvas {
+      display: none;
+    }
+    .camera-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .scan-frame {
+      width: 200px;
+      height: 200px;
+      border: 3px solid rgba(16, 185, 129, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.35);
+    }
+    .scan-hint {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.82rem;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .camera-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      gap: 10px;
+      background: #1a1a2e;
+    }
+    .camera-placeholder-icon { font-size: 3rem; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .status-badge.scanning { background: #D1FAE5; color: #059669; }
+    .status-badge.stopped { background: #F3F4F6; color: #6B7280; }
+    .status-badge.found { background: #FEF3C7; color: #D97706; }
+    .result-panel {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .result-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-light); margin-bottom: 10px; }
+    .result-text { font-size: 1rem; color: var(--text); word-break: break-all; line-height: 1.6; background: var(--bg); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 14px; }
+    .error-msg { color: #EF4444; font-size: 0.9rem; padding: 12px 16px; background: #FEF2F2; border-radius: var(--radius-sm); margin-bottom: 16px; }
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo">WooaQR</a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">vCard QR</a>
+      <a href="qr-reader.html">QR Reader</a>
+      <a href="barcode-generator.html">Barcode</a>
+    </nav>
+    <div class="header-right">
+      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../qr-camera.html">KO</a>
+        <span>|</span>
+        <a href="qr-camera.html" class="active">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/en/" target="_blank" rel="noopener" class="active">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+  </div>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="../index.html">WooaQR</a>
+    <span>›</span>
+    <span>Camera QR Scanner</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📷</span>
+    <h1>Camera QR Code Scanner – Free Online</h1>
+    <p>Allow camera access to scan QR codes in real time using your webcam or mobile camera. No app needed — works directly in the browser.</p>
+  </div>
+
+  <div style="text-align:center; margin-bottom:12px;">
+    <span class="status-badge stopped" id="statusBadge">⏹ 중지됨</span>
+  </div>
+
+  <div id="errorMsg" class="error-msg" style="display:none;"></div>
+
+  <div class="camera-wrap" id="cameraWrap">
+    <div class="camera-placeholder" id="cameraPlaceholder">
+      <span class="camera-placeholder-icon">📷</span>
+      <span>카메라 시작 버튼을 눌러주세요</span>
+    </div>
+    <video id="cameraVideo" autoplay playsinline muted style="display:none;"></video>
+    <canvas id="scanCanvas"></canvas>
+    <div class="camera-overlay" id="cameraOverlay" style="display:none;">
+      <div class="scan-frame"></div>
+      <div class="scan-hint">QR코드를 프레임 안에 맞춰주세요</div>
+    </div>
+  </div>
+
+  <div class="btn-group" style="justify-content:center; margin-bottom:20px;">
+    <button id="startBtn" class="btn-primary">▶ 카메라 시작</button>
+    <button id="stopBtn" class="btn-secondary" style="display:none;">⏹ 카메라 중지</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel" style="display:none;">
+    <div class="result-label">스캔 결과</div>
+    <div class="result-text" id="resultText"></div>
+    <div class="btn-group">
+      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
+      <button id="continueBtn" class="btn-secondary">🔄 계속 스캔</button>
+    </div>
+  </div>
+
+  <div class="cross-link-tip">
+    💡 이미지 파일로 QR코드를 읽으려면? <a href="../qr-reader.html">QR코드 읽기 (파일 업로드) →</a>
+  </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Does this work on a smartphone camera?</h3>
+        <p style="color:#555;margin:0;">Yes. Open in a mobile browser and grant camera permission to scan QR codes in real time.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Is camera access required?</h3>
+        <p style="color:#555;margin:0;">Yes. Camera permission is needed to scan in real time. No data is sent to any server.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What types of QR codes can be scanned?</h3>
+        <p style="color:#555;margin:0;">All standard QR code types including URL, text, WiFi, vCard, email, and phone are supported.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="ad-card" style="margin-top:16px;overflow:hidden;">    
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 WooaQR. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html">All Tools</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="../js/pwa-install.js"></script>
+<script>
+(function() {
+  const video = document.getElementById('cameraVideo');
+  const scanCanvas = document.getElementById('scanCanvas');
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const statusBadge = document.getElementById('statusBadge');
+  const errorMsg = document.getElementById('errorMsg');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultText = document.getElementById('resultText');
+  const copyBtn = document.getElementById('copyBtn');
+  const openBtn = document.getElementById('openBtn');
+  const continueBtn = document.getElementById('continueBtn');
+  const cameraPlaceholder = document.getElementById('cameraPlaceholder');
+  const cameraOverlay = document.getElementById('cameraOverlay');
+
+  let stream = null;
+  let animFrame = null;
+  let scanning = false;
+  let paused = false;
+  let lastResult = '';
+
+  function setStatus(state) {
+    statusBadge.className = 'status-badge ' + state;
+    if (state === 'scanning') statusBadge.textContent = '🔍 스캔 중...';
+    else if (state === 'stopped') statusBadge.textContent = '⏹ 중지됨';
+    else if (state === 'found') statusBadge.textContent = '✅ QR코드 발견!';
+  }
+
+  startBtn.addEventListener('click', startCamera);
+  stopBtn.addEventListener('click', stopCamera);
+  continueBtn.addEventListener('click', resumeScanning);
+
+  async function startCamera() {
+    errorMsg.style.display = 'none';
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
+      video.srcObject = stream;
+      video.style.display = 'block';
+      cameraPlaceholder.style.display = 'none';
+      cameraOverlay.style.display = 'flex';
+      startBtn.style.display = 'none';
+      stopBtn.style.display = '';
+      scanning = true;
+      paused = false;
+      setStatus('scanning');
+      video.addEventListener('loadedmetadata', startScan);
+    } catch (err) {
+      let msg = '카메라 접근 실패: ';
+      if (err.name === 'NotAllowedError') msg += '카메라 권한이 거부되었습니다. 브라우저 설정에서 카메라 권한을 허용해주세요.';
+      else if (err.name === 'NotFoundError') msg += '카메라를 찾을 수 없습니다.';
+      else if (err.name === 'NotSupportedError') msg += 'HTTPS 환경에서만 카메라를 사용할 수 있습니다.';
+      else msg += err.message;
+      errorMsg.textContent = '⚠️ ' + msg;
+      errorMsg.style.display = 'block';
+      setStatus('stopped');
+    }
+  }
+
+  function startScan() {
+    if (!scanning || paused) return;
+    scanCanvas.width = video.videoWidth;
+    scanCanvas.height = video.videoHeight;
+    const ctx = scanCanvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, scanCanvas.width, scanCanvas.height);
+    const imageData = ctx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+    const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+    if (code) {
+      paused = true;
+      lastResult = code.data;
+      setStatus('found');
+      resultText.textContent = code.data;
+      resultPanel.style.display = 'block';
+      if (/^https?:\/\//i.test(code.data)) {
+        openBtn.style.display = '';
+      } else {
+        openBtn.style.display = 'none';
+      }
+    } else {
+      animFrame = requestAnimationFrame(startScan);
+    }
+  }
+
+  function resumeScanning() {
+    paused = false;
+    resultPanel.style.display = 'none';
+    lastResult = '';
+    setStatus('scanning');
+    animFrame = requestAnimationFrame(startScan);
+  }
+
+  function stopCamera() {
+    scanning = false;
+    paused = false;
+    if (animFrame) cancelAnimationFrame(animFrame);
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+    video.srcObject = null;
+    video.style.display = 'none';
+    cameraPlaceholder.style.display = 'flex';
+    cameraOverlay.style.display = 'none';
+    startBtn.style.display = '';
+    stopBtn.style.display = 'none';
+    resultPanel.style.display = 'none';
+    setStatus('stopped');
+  }
+
+  copyBtn.addEventListener('click', function() {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult).then(() => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = lastResult;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    });
+  });
+
+  openBtn.addEventListener('click', function() {
+    if (lastResult) window.open(lastResult, '_blank', 'noopener');
+  });
+
+  // Stop camera on page hide
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && stream) stopCamera();
+  });
+})();
+</script>
+</body>
+</html>
