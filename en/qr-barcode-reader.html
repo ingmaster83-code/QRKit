@@ -214,6 +214,7 @@
       color: var(--text-light);
       font-weight: 500;
     }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -234,7 +235,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-barcode-reader.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-barcode-reader.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -264,6 +270,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -283,25 +290,25 @@
 
   <div class="drop-zone" id="dropZone">
     <span class="drop-zone-icon">📂</span>
-    <div class="drop-zone-text">이미지를 여기에 드래그하거나 클릭해서 선택</div>
-    <div class="drop-zone-sub">PNG, JPG, GIF, WebP, BMP 등 이미지 파일 지원</div>
+    <div class="drop-zone-text">Drag an image here or click to select</div>
+    <div class="drop-zone-sub">Supports PNG, JPG, GIF, WebP, BMP and other image files</div>
     <input type="file" id="fileInput" accept="image/*">
   </div>
 
   <div class="preview-wrap" id="previewWrap">
-    <img id="previewImg" alt="업로드된 이미지">
+    <img id="previewImg" alt="Uploaded image">
   </div>
 
   <div class="status-bar" id="statusBar">
     <div class="spinner"></div>
-    <span>🔍 분석 중...</span>
+    <span>🔍 Analyzing...</span>
   </div>
 
   <div class="result-panel" id="resultPanel">
     <div id="resultContent"></div>
     <div class="btn-group" id="resultBtns" style="display:none;">
-      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
-      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 링크 열기</button>
+      <button id="copyBtn" class="btn-primary">📋 Copy Result</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 Open Link</button>
     </div>
   </div>
 
@@ -315,9 +322,9 @@
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="supported-formats">
-    <h2>지원하는 형식</h2>
+    <h2>Supported Formats</h2>
     <div class="format-tags">
-      <span class="format-tag">QR코드</span>
+      <span class="format-tag">QR Code</span>
       <span class="format-tag">EAN-13</span>
       <span class="format-tag">EAN-8</span>
       <span class="format-tag">CODE-128</span>
@@ -330,7 +337,7 @@
   </div>
 
   <div class="cross-link-tip">
-    💡 QR코드만 빠르게 읽으려면? <a href="../barcode-generator.html">QR코드 읽기 →</a>
+    💡 Want to read QR codes quickly? <a href="../qr-reader.html">QR Code Reader →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -397,7 +404,7 @@
   const openBtn     = document.getElementById('openBtn');
 
   const formatNames = {
-    'QR_CODE':     'QR코드',
+    'QR_CODE':     'QR Code',
     'EAN_13':      'EAN-13',
     'EAN_8':       'EAN-8',
     'CODE_128':    'CODE-128',
@@ -472,7 +479,7 @@
       const isUrl = /^https?:\/\//i.test(text);
       resultContent.innerHTML =
         '<span class="result-format">' + escapeHtml(formatLabel) + '</span>' +
-        '<div class="result-label">인식 결과</div>' +
+        '<div class="result-label">Detected Result</div>' +
         '<div class="result-text">' + escapeHtml(text) + '</div>';
 
       resultBtns.style.display = 'flex';
@@ -483,7 +490,7 @@
       resultPanel.className = 'result-panel error';
       resultPanel.style.display = 'block';
       resultContent.innerHTML =
-        '<div class="result-error">⚠️ 인식할 수 없습니다. 이미지가 선명한지 확인해주세요.</div>';
+        '<div class="result-error">⚠️ Could not detect. Please check the image is clear.</div>';
       resultBtns.style.display = 'none';
       lastResult = '';
     }
@@ -492,7 +499,7 @@
   copyBtn.addEventListener('click', function() {
     if (!lastResult) return;
     navigator.clipboard.writeText(lastResult).then(() => {
-      flash(copyBtn, '✅ 복사됨!', '📋 결과 복사');
+      flash(copyBtn, '✅ Copied!', '📋 Copy Result');
     }).catch(() => {
       const ta = document.createElement('textarea');
       ta.value = lastResult;
@@ -500,7 +507,7 @@
       ta.select();
       document.execCommand('copy');
       document.body.removeChild(ta);
-      flash(copyBtn, '✅ 복사됨!', '📋 결과 복사');
+      flash(copyBtn, '✅ Copied!', '📋 Copy Result');
     });
   });
 

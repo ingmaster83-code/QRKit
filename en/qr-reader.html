@@ -140,6 +140,7 @@
       align-items: center;
       gap: 8px;
     }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -160,7 +161,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-reader.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-reader.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -190,6 +196,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -209,8 +216,8 @@
 
   <div class="drop-zone" id="dropZone">
     <span class="drop-zone-icon">📂</span>
-    <div class="drop-zone-text">이미지를 여기에 드래그하거나 클릭해서 선택</div>
-    <div class="drop-zone-sub">PNG, JPG, GIF, WebP, BMP 등 이미지 파일 지원</div>
+    <div class="drop-zone-text">Drag an image here or click to select</div>
+    <div class="drop-zone-sub">Supports PNG, JPG, GIF, WebP, BMP and other image files</div>
     <input type="file" id="fileInput" accept="image/*">
   </div>
 
@@ -219,16 +226,16 @@
   </div>
 
   <div class="result-panel" id="resultPanel">
-    <div class="result-label">해독 결과</div>
+    <div class="result-label">Decoded Result</div>
     <div id="resultContent"></div>
     <div class="btn-group" id="resultBtns" style="display:none;">
-      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
-      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
+      <button id="copyBtn" class="btn-primary">📋 Copy Result</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 Open URL</button>
     </div>
   </div>
 
   <div class="cross-link-tip">
-    💡 카메라로 실시간 스캔하려면? <a href="../qr-camera.html">카메라 QR 읽기 →</a>
+    💡 Want to scan in real time? <a href="../qr-camera.html">Camera QR Scanner →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -339,7 +346,7 @@
           }
         } else {
           lastResult = '';
-          resultContent.innerHTML = '<div class="result-error">⚠️ QR코드를 찾을 수 없습니다. 더 선명한 이미지를 사용해보세요.</div>';
+          resultContent.innerHTML = '<div class="result-error">⚠️ No QR code found. Try a clearer image.</div>';
           resultBtns.style.display = 'none';
         }
       };
@@ -352,7 +359,7 @@
     if (!lastResult) return;
     navigator.clipboard.writeText(lastResult).then(() => {
       const orig = copyBtn.textContent;
-      copyBtn.textContent = '✅ 복사됨!';
+      copyBtn.textContent = '✅ Copied!';
       setTimeout(() => { copyBtn.textContent = orig; }, 2000);
     }).catch(() => {
       const ta = document.createElement('textarea');
@@ -362,7 +369,7 @@
       document.execCommand('copy');
       document.body.removeChild(ta);
       const orig = copyBtn.textContent;
-      copyBtn.textContent = '✅ 복사됨!';
+      copyBtn.textContent = '✅ Copied!';
       setTimeout(() => { copyBtn.textContent = orig; }, 2000);
     });
   });

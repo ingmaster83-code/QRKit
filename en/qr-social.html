@@ -78,6 +78,13 @@
   ]
 }
 </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -92,7 +99,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-social.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-social.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -122,6 +134,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -140,36 +153,36 @@
   </div>
 
   <div class="input-panel">
-    <label>플랫폼 선택</label>
+    <label>Select Platform</label>
     <div class="platform-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
-      <button type="button" class="platform-btn" data-platform="instagram" data-url-prefix="https://instagram.com/" data-placeholder="@username 또는 프로필 ID" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <button type="button" class="platform-btn" data-platform="instagram" data-url-prefix="https://instagram.com/" data-placeholder="@username or profile ID" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
         <span style="font-size:1.4rem;">📸</span>
         <span>Instagram</span>
       </button>
-      <button type="button" class="platform-btn" data-platform="youtube" data-url-prefix="https://youtube.com/@" data-placeholder="채널명 또는 @핸들" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <button type="button" class="platform-btn" data-platform="youtube" data-url-prefix="https://youtube.com/@" data-placeholder="channel name or @handle" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
         <span style="font-size:1.4rem;">▶️</span>
         <span>YouTube</span>
       </button>
-      <button type="button" class="platform-btn" data-platform="tiktok" data-url-prefix="https://tiktok.com/@" data-placeholder="@username 또는 프로필 ID" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <button type="button" class="platform-btn" data-platform="tiktok" data-url-prefix="https://tiktok.com/@" data-placeholder="@username or profile ID" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
         <span style="font-size:1.4rem;">🎵</span>
         <span>TikTok</span>
       </button>
-      <button type="button" class="platform-btn" data-platform="x" data-url-prefix="https://x.com/" data-placeholder="@username 또는 프로필 ID" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <button type="button" class="platform-btn" data-platform="x" data-url-prefix="https://x.com/" data-placeholder="@username or profile ID" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
         <span style="font-size:1.4rem;">✖️</span>
         <span>X (Twitter)</span>
       </button>
-      <button type="button" class="platform-btn" data-platform="facebook" data-url-prefix="https://facebook.com/" data-placeholder="프로필 ID 또는 페이지명" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <button type="button" class="platform-btn" data-platform="facebook" data-url-prefix="https://facebook.com/" data-placeholder="profile ID or page name" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
         <span style="font-size:1.4rem;">📘</span>
         <span>Facebook</span>
       </button>
-      <button type="button" class="platform-btn" data-platform="kakao" data-url-prefix="https://open.kakao.com/o/" data-placeholder="오픈채팅 링크를 직접 입력하세요" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <button type="button" class="platform-btn" data-platform="kakao" data-url-prefix="https://open.kakao.com/o/" data-placeholder="Enter open chat link directly" style="padding:12px 8px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:0.9rem;display:flex;flex-direction:column;align-items:center;gap:4px;">
         <span style="font-size:1.4rem;">💬</span>
-        <span>카카오톡</span>
+        <span>KakaoTalk</span>
       </button>
     </div>
 
-    <label for="socialInput" id="socialInputLabel">프로필 ID 또는 URL</label>
-    <input type="text" id="socialInput" placeholder="플랫폼을 먼저 선택하세요" autocomplete="off">
+    <label for="socialInput" id="socialInputLabel">Profile ID or URL</label>
+    <input type="text" id="socialInput" placeholder="Select a platform first" autocomplete="off">
     <p id="urlPreview" style="font-size:0.82rem;color:#6b7280;margin-top:6px;min-height:1.2em;word-break:break-all;"></p>
   </div>
 
@@ -190,7 +203,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -199,7 +212,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
@@ -210,7 +223,7 @@
     <div id="qrcode">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">📱</span>
-        <span>플랫폼을 선택하고 ID를 입력하면 QR코드가 생성됩니다</span>
+        <span>Select a platform and enter ID to generate a QR code</span>
       </div>
     </div>
     <div class="btn-group">
@@ -273,7 +286,7 @@
   var currentPlatform = null;
   var currentPrefix = '';
 
-  var PLATFORM_PLACEHOLDER = '플랫폼을 먼저 선택하세요';
+  var PLATFORM_PLACEHOLDER = 'Select a platform first';
 
   function getQRUrl() {
     var val = document.getElementById('socialInput').value.trim();
@@ -287,7 +300,7 @@
   function updatePreview() {
     var url = getQRUrl();
     var preview = document.getElementById('urlPreview');
-    preview.textContent = url ? '생성될 URL: ' + url : '';
+    preview.textContent = url ? 'URL to encode: ' + url : '';
   }
 
   function generateQR() {
@@ -301,7 +314,7 @@
     updatePreview();
 
     if (!url) {
-      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📱</span><span>플랫폼을 선택하고 ID를 입력하면 QR코드가 생성됩니다</span></div>';
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📱</span><span>Select a platform and enter ID to generate a QR code</span></div>';
       dlBtn.disabled = true;
       return;
     }
@@ -318,20 +331,20 @@
       });
       dlBtn.disabled = false;
     } catch(e) {
-      container.innerHTML = '<div class="alert alert-error">QR코드 생성에 실패했습니다.</div>';
+      container.innerHTML = '<div class="alert alert-error">Failed to generate QR code.</div>';
       dlBtn.disabled = true;
     }
   }
 
-  // 플랫폼 버튼 클릭
+  // platform button click
   document.querySelectorAll('.platform-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      // active 스타일 초기화
+      // reset active style
       document.querySelectorAll('.platform-btn').forEach(function(b) {
         b.style.border = '2px solid #e5e7eb';
         b.style.background = '#fff';
       });
-      // 선택된 버튼 강조
+      // highlight selected button
       this.style.border = '2px solid #10B981';
       this.style.background = '#f0fdf4';
 
@@ -347,14 +360,14 @@
     });
   });
 
-  // 입력 이벤트
+  // input event
   ['socialInput', 'sizeSelect', 'fgColor', 'bgColor'].forEach(function(id) {
     var el = document.getElementById(id);
     el.addEventListener('input', generateQR);
     el.addEventListener('change', generateQR);
   });
 
-  // 다운로드
+  // download
   document.getElementById('downloadBtn').addEventListener('click', function() {
     var canvas = document.querySelector('#qrcode canvas');
     if (!canvas) return;

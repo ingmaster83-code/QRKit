@@ -121,6 +121,7 @@
     }
     .geo-btn:hover { background: #d1fae5; }
     .link-format-row { margin-top: 0.8rem; }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -141,7 +142,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-location.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-location.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -171,6 +177,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -190,23 +197,23 @@
 
   <div class="input-panel">
     <div class="mode-tabs">
-      <button class="mode-tab active" id="tabCoords" onclick="switchMode('coords')">📐 좌표 입력</button>
-      <button class="mode-tab" id="tabAddress" onclick="switchMode('address')">🔍 주소 검색</button>
+      <button class="mode-tab active" id="tabCoords" onclick="switchMode('coords')">📐 Enter Coordinates</button>
+      <button class="mode-tab" id="tabAddress" onclick="switchMode('address')">🔍 Address Search</button>
     </div>
 
     <div class="mode-panel active" id="panelCoords">
-      <label for="latInput">위도 (Latitude)</label>
-      <input type="number" id="latInput" placeholder="예: 37.566535" step="any" autocomplete="off">
+      <label for="latInput">Latitude</label>
+      <input type="number" id="latInput" placeholder="e.g. 37.566535" step="any" autocomplete="off">
 
-      <label for="lngInput" style="margin-top:0.8rem;">경도 (Longitude)</label>
-      <input type="number" id="lngInput" placeholder="예: 126.977969" step="any" autocomplete="off">
+      <label for="lngInput" style="margin-top:0.8rem;">Longitude</label>
+      <input type="number" id="lngInput" placeholder="e.g. 126.977969" step="any" autocomplete="off">
 
-      <button class="geo-btn" id="geoBtn">📡 내 위치 가져오기</button>
+      <button class="geo-btn" id="geoBtn">📡 Get My Location</button>
     </div>
 
     <div class="mode-panel" id="panelAddress">
-      <label for="addressInput">주소</label>
-      <input type="text" id="addressInput" placeholder="예: 서울특별시 중구 세종대로 110" autocomplete="off">
+      <label for="addressInput">Address</label>
+      <input type="text" id="addressInput" placeholder="e.g. 1600 Pennsylvania Ave NW, Washington DC" autocomplete="off">
     </div>
   </div>
 
@@ -227,7 +234,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -236,16 +243,16 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
     <div class="option-row link-format-row" id="linkFormatRow">
-      <span class="option-label">링크 형식</span>
+      <span class="option-label">Link Format</span>
       <div class="option-control">
         <select id="linkFormat">
-          <option value="geo">geo: URI (네이티브 지도 앱)</option>
-          <option value="maps">Google Maps URL (범용)</option>
+          <option value="geo">geo: URI (Native map app)</option>
+          <option value="maps">Google Maps URL (Universal)</option>
         </select>
       </div>
     </div>
@@ -256,7 +263,7 @@
     <div id="qrcode">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">📍</span>
-        <span>위치 정보를 입력하면 QR코드가 생성됩니다</span>
+        <span>Enter location details to generate a QR code</span>
       </div>
     </div>
     <div class="btn-group">
@@ -370,13 +377,13 @@
       });
       dlBtn.disabled = false;
     } catch(e) {
-      container.innerHTML = '<div class="alert alert-error">QR코드 생성에 실패했습니다.</div>';
+      container.innerHTML = '<div class="alert alert-error">Failed to generate QR code.</div>';
       dlBtn.disabled = true;
     }
   }
 
   function showPlaceholder(container, dlBtn) {
-    container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📍</span><span>위치 정보를 입력하면 QR코드가 생성됩니다</span></div>';
+    container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📍</span><span>Enter location details to generate a QR code</span></div>';
     dlBtn.disabled = true;
   }
 
@@ -390,7 +397,7 @@
 
   document.getElementById('geoBtn').addEventListener('click', function() {
     if (!navigator.geolocation) {
-      alert('이 브라우저에서는 위치 정보를 지원하지 않습니다.');
+      alert('Geolocation is not supported by this browser.');
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -400,7 +407,7 @@
         generateQR();
       },
       function() {
-        alert('위치 정보를 가져오지 못했습니다. 브라우저에서 위치 권한을 허용해 주세요.');
+        alert('Could not get your location. Please allow location access in your browser.');
       }
     );
   });

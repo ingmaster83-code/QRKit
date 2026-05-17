@@ -27,7 +27,7 @@
   <meta property="og:url" content="https://qrkit.wooahouse.com/en/qr-custom.html">
   <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://qrkit.wooahouse.com/og-image.png">
-  <!-- 구조화 데이터 -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -208,6 +208,7 @@
       border-radius: 10px;
       box-shadow: 0 0 0 1px var(--border);
     }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -228,7 +229,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-custom.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-custom.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -258,6 +264,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -277,13 +284,13 @@
 
   <!-- Input -->
   <div class="input-panel">
-    <label for="qrInput">URL 또는 텍스트 입력</label>
-    <input type="text" id="qrInput" placeholder="https://example.com 또는 텍스트 입력" autocomplete="off">
+    <label for="qrInput">Enter URL or Text</label>
+    <input type="text" id="qrInput" placeholder="https://example.com or text" autocomplete="off">
   </div>
 
   <!-- Options -->
   <div class="options-panel">
-    <div class="options-title">커스터마이징 옵션</div>
+    <div class="options-title">Customization Options</div>
 
     <!-- Size -->
     <div class="option-row">
@@ -298,7 +305,7 @@
 
     <!-- Foreground Color -->
     <div class="option-row">
-      <span class="option-label">전경색 (QR 색상)</span>
+      <span class="option-label">Foreground Color (QR)</span>
       <div class="option-control">
         <div class="color-input-group">
           <input type="color" id="fgColorPicker" value="#000000">
@@ -316,7 +323,7 @@
           <input type="text" id="bgColorHex" value="#FFFFFF" maxlength="7">
           <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;cursor:pointer;margin-bottom:0;">
             <input type="checkbox" id="transparentBg" style="width:16px;height:16px;accent-color:var(--primary);cursor:pointer;">
-            투명
+            Transparent
           </label>
         </div>
       </div>
@@ -324,24 +331,24 @@
 
     <!-- Error Correction -->
     <div class="option-row">
-      <span class="option-label">오류 수정 레벨</span>
+      <span class="option-label">Error Correction Level</span>
       <div class="option-control">
         <select id="ecLevel">
-          <option value="L">L (7%) - 기본</option>
+          <option value="L">L (7%) - Default</option>
           <option value="M">M (15%)</option>
           <option value="Q">Q (25%)</option>
-          <option value="H" selected>H (30%) - 로고 삽입 시 권장</option>
+          <option value="H" selected>H (30%) - Recommended with logo</option>
         </select>
       </div>
     </div>
 
     <!-- Corner Style -->
     <div class="option-row">
-      <span class="option-label">모서리 스타일</span>
+      <span class="option-label">Corner Style</span>
       <div class="option-control">
         <div class="mask-btns">
-          <button class="mask-btn active" data-style="square">기본</button>
-          <button class="mask-btn" data-style="round">둥글게</button>
+          <button class="mask-btn active" data-style="square">Default</button>
+          <button class="mask-btn" data-style="round">Rounded</button>
         </div>
       </div>
     </div>
@@ -349,15 +356,15 @@
 
   <!-- Logo -->
   <div class="options-panel">
-    <div class="options-title">로고 삽입 (선택)</div>
+    <div class="options-title">Insert Logo (Optional)</div>
     <div class="logo-upload-zone" id="logoZone">
       <div id="logoPlaceholder">
         <div style="font-size:2rem;margin-bottom:6px;">📎</div>
-        <div style="font-size:0.85rem;color:var(--text-light);">로고 이미지 선택 (JPG, PNG, SVG)</div>
+        <div style="font-size:0.85rem;color:var(--text-light);">Select logo image (JPG, PNG, SVG)</div>
       </div>
       <div id="logoPreviewWrap" style="display:none;">
-        <img id="logoPreview" class="logo-preview-small" alt="로고 미리보기">
-        <div style="font-size:0.78rem;color:var(--primary);font-weight:600;">로고가 적용됩니다</div>
+        <img id="logoPreview" class="logo-preview-small" alt="Logo preview">
+        <div style="font-size:0.78rem;color:var(--primary);font-weight:600;">Logo will be applied</div>
       </div>
       <input type="file" id="logoInput" accept="image/*" hidden>
     </div>
@@ -373,16 +380,16 @@
         </div>
       </div>
       <div class="option-row">
-        <span class="option-label">로고 모양</span>
+        <span class="option-label">Logo Shape</span>
         <div class="option-control">
           <div class="mask-btns">
-            <button class="mask-btn active" data-logo-mask="square">정사각형</button>
-            <button class="mask-btn" data-logo-mask="circle">원형</button>
+            <button class="mask-btn active" data-logo-mask="square">Square</button>
+            <button class="mask-btn" data-logo-mask="circle">Circle</button>
           </div>
         </div>
       </div>
       <div class="option-row">
-        <span class="option-label">로고 패딩</span>
+        <span class="option-label">Logo Padding</span>
         <div class="option-control">
           <div class="range-wrap">
             <input type="range" id="logoPadding" min="0" max="20" value="6" step="1">
@@ -390,11 +397,11 @@
           </div>
         </div>
       </div>
-      <button class="btn-copy" onclick="removeLogo()" style="margin-top:8px;">로고 제거</button>
+      <button class="btn-copy" onclick="removeLogo()" style="margin-top:8px;">Remove Logo</button>
     </div>
 
     <div class="warning-box" id="logoWarning">
-      로고가 클수록 QR 인식률이 낮아집니다. H 오류 수정 레벨을 권장합니다.
+      Larger logos reduce QR code scan reliability. H error correction level is recommended.
     </div>
   </div>
 
@@ -404,20 +411,20 @@
     <div id="qrPreview">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">📱</span>
-        <span>URL 또는 텍스트를 입력하면 QR코드가 생성됩니다</span>
+        <span>Enter URL or text to generate a QR code</span>
       </div>
     </div>
     <div class="qr-canvas-wrap" id="canvasWrap" style="display:none;">
       <canvas id="qrCanvas"></canvas>
     </div>
     <div class="btn-group">
-      <button id="downloadBtn" class="btn-primary" disabled>PNG 다운로드</button>
-      <button id="downloadSvgBtn" class="btn-secondary" disabled>SVG 다운로드</button>
+      <button id="downloadBtn" class="btn-primary" disabled>Download PNG</button>
+      <button id="downloadSvgBtn" class="btn-secondary" disabled>Download SVG</button>
     </div>
   </div>
 
   <div class="cross-link-tip">
-    💡 QR코드의 색상을 더 다양하게 탐색하려면 <a href="../qr-url.html" target="_blank" rel="noopener">WooaColor에서 색상 도구 사용하기 →</a>
+    💡 Want to explore more colors? <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">WooaColor – Color Tools →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">

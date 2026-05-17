@@ -78,6 +78,13 @@
   ]
 }
 </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -92,7 +99,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-wifi.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-wifi.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -122,6 +134,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -140,22 +153,22 @@
   </div>
 
   <div class="input-panel">
-    <label for="ssidInput">WiFi 이름 (SSID)</label>
+    <label for="ssidInput">WiFi Name (SSID)</label>
     <input type="text" id="ssidInput" placeholder="MyHomeWiFi" autocomplete="off">
 
-    <label for="passwordInput">비밀번호</label>
-    <input type="text" id="passwordInput" placeholder="WiFi 비밀번호 입력 (없으면 비워두세요)" autocomplete="off">
+    <label for="passwordInput">Password</label>
+    <input type="text" id="passwordInput" placeholder="WiFi password (leave blank if none)" autocomplete="off">
 
-    <label for="encryptionSelect">암호화 방식</label>
+    <label for="encryptionSelect">Security Type</label>
     <select id="encryptionSelect">
-      <option value="WPA">WPA / WPA2 (일반적)</option>
-      <option value="WEP">WEP (구형)</option>
-      <option value="nopass">없음 (개방형)</option>
+      <option value="WPA">WPA / WPA2 (Common)</option>
+      <option value="WEP">WEP (Legacy)</option>
+      <option value="nopass">None (Open)</option>
     </select>
 
     <div class="checkbox-row">
       <input type="checkbox" id="hiddenCheck">
-      <label for="hiddenCheck">숨겨진 네트워크 (Hidden SSID)</label>
+      <label for="hiddenCheck">Hidden Network (Hidden SSID)</label>
     </div>
   </div>
 
@@ -176,7 +189,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -185,7 +198,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
@@ -196,7 +209,7 @@
     <div id="qrcode">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">📶</span>
-        <span>WiFi 이름을 입력하면 QR코드가 생성됩니다</span>
+        <span>Enter WiFi name to generate a QR code</span>
       </div>
     </div>
     <div class="btn-group">
@@ -205,8 +218,8 @@
   </div>
 
   <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:16px 20px; margin-top:16px; font-size:0.88rem; color:#15803D;">
-    <strong>📱 사용 방법</strong><br>
-    생성된 QR코드를 인쇄하거나 화면에 표시하면, 스마트폰 카메라로 스캔해서 바로 WiFi에 연결할 수 있습니다. (iOS 11+, Android 10+ 지원)
+    <strong>📱 How to use</strong><br>
+    Print or display the QR code. Scan with a smartphone camera to connect to WiFi instantly. (iOS 11+, Android 10+)
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -277,7 +290,7 @@
     const dlBtn = document.getElementById('downloadBtn');
 
     if (!ssid.trim()) {
-      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📶</span><span>WiFi 이름을 입력하면 QR코드가 생성됩니다</span></div>';
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📶</span><span>Enter WiFi name to generate a QR code</span></div>';
       dlBtn.disabled = true;
       return;
     }
@@ -299,7 +312,7 @@
       });
       dlBtn.disabled = false;
     } catch(e) {
-      container.innerHTML = '<div class="alert alert-error">QR코드 생성에 실패했습니다. 입력값을 확인해주세요.</div>';
+      container.innerHTML = '<div class="alert alert-error">Failed to generate QR code. Please check your input.</div>';
       dlBtn.disabled = true;
     }
   }

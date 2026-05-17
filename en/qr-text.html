@@ -78,6 +78,13 @@
   ]
 }
 </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -92,7 +99,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-text.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-text.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -122,6 +134,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -141,8 +154,8 @@
 
   <div class="input-panel">
     <label for="textInput">Enter Text</label>
-    <textarea id="textInput" placeholder="QR코드로 변환할 텍스트를 입력하세요..." style="min-height:140px;"></textarea>
-    <div style="text-align:right; font-size:0.8rem; color:var(--text-light); margin-top:-8px;" id="charCount">0자</div>
+    <textarea id="textInput" placeholder="Enter text to convert to QR code..." style="min-height:140px;"></textarea>
+    <div style="text-align:right; font-size:0.8rem; color:var(--text-light); margin-top:-8px;" id="charCount">0 chars</div>
   </div>
 
   <div class="options-panel">
@@ -162,7 +175,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -171,7 +184,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
@@ -191,7 +204,7 @@
   </div>
 
   <div class="cross-link-tip">
-    💡 텍스트를 더 다양하게 변환하고 싶다면? <a href="../qr-url.html" target="_blank" rel="noopener">WooaText에서 텍스트 도구 보기 →</a>
+    💡 Want more text conversion tools? <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">WooaText – Text Tools →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -256,7 +269,7 @@
     const container = document.getElementById('qrcode');
     const dlBtn = document.getElementById('downloadBtn');
 
-    document.getElementById('charCount').textContent = text.length + '자';
+    document.getElementById('charCount').textContent = text.length + ' chars';
 
     if (!text.trim()) {
       container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📝</span><span>Enter text to generate a QR code</span></div>';
@@ -276,7 +289,7 @@
       });
       dlBtn.disabled = false;
     } catch(e) {
-      container.innerHTML = '<div class="alert alert-error">텍스트가 너무 깁니다. 내용을 줄여주세요.</div>';
+      container.innerHTML = '<div class="alert alert-error">Text is too long. Please shorten it.</div>';
       dlBtn.disabled = true;
     }
   }

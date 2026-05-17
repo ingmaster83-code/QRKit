@@ -78,6 +78,13 @@
   ]
 }
 </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -92,7 +99,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-phone.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-phone.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -122,6 +134,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -140,9 +153,9 @@
   </div>
 
   <div class="input-panel">
-    <label for="phoneInput">전화번호 입력</label>
-    <input type="tel" id="phoneInput" placeholder="010-1234-5678 또는 +82-10-1234-5678" autocomplete="off">
-    <p style="font-size:0.82rem; color:var(--text-light); margin-top:6px;">숫자와 +, -, 공백만 입력하세요. 국제 형식(+82...)도 지원합니다.</p>
+    <label for="phoneInput">Enter Phone Number</label>
+    <input type="tel" id="phoneInput" placeholder="e.g. +1-800-555-1234" autocomplete="off">
+    <p style="font-size:0.82rem; color:var(--text-light); margin-top:6px;">Enter digits and +, -, spaces only. International format (+1...) is supported.</p>
   </div>
 
   <div class="options-panel">
@@ -162,7 +175,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -171,14 +184,14 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
   </div>
 
   <div id="telPreview" style="display:none; margin:0 0 16px; padding:12px 16px; background:var(--primary-light); border-radius:var(--radius-sm); font-size:0.88rem; color:var(--primary-dark);">
-    생성될 QR 데이터: <strong id="telValue"></strong>
+    QR data to encode: <strong id="telValue"></strong>
   </div>
 
   <div class="qr-preview-panel">
@@ -186,7 +199,7 @@
     <div id="qrcode">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">📞</span>
-        <span>전화번호를 입력하면 QR코드가 생성됩니다</span>
+        <span>Enter a phone number to generate a QR code</span>
       </div>
     </div>
     <div class="btn-group">
@@ -195,7 +208,7 @@
   </div>
 
   <div class="cross-link-tip">
-    💡 명함에 QR코드를 넣고 싶다면? <a href="../qr-sms.html">명함 QR코드 생성하기 →</a>
+    💡 Want to add a QR code to a business card? <a href="../qr-vcard.html">Business Card QR Code →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -278,7 +291,7 @@
     const telVal = document.getElementById('telValue');
 
     if (!raw) {
-      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📞</span><span>전화번호를 입력하면 QR코드가 생성됩니다</span></div>';
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">📞</span><span>Enter a phone number to generate a QR code</span></div>';
       dlBtn.disabled = true;
       preview.style.display = 'none';
       return;

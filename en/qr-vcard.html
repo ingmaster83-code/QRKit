@@ -78,6 +78,13 @@
   ]
 }
 </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -92,7 +99,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-vcard.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-vcard.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -122,6 +134,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -142,33 +155,33 @@
   <div class="input-panel">
     <div class="input-row">
       <div class="field-group">
-        <label for="nameInput">이름 *</label>
-        <input type="text" id="nameInput" placeholder="홍길동" autocomplete="off">
+        <label for="nameInput">Name *</label>
+        <input type="text" id="nameInput" placeholder="John Doe" autocomplete="off">
       </div>
       <div class="field-group">
-        <label for="orgInput">회사 / 소속</label>
-        <input type="text" id="orgInput" placeholder="(주)회사명" autocomplete="off">
+        <label for="orgInput">Company / Organization</label>
+        <input type="text" id="orgInput" placeholder="Company name" autocomplete="off">
       </div>
     </div>
 
     <div class="input-row" style="margin-top:16px;">
       <div class="field-group">
-        <label for="titleInput">직책</label>
-        <input type="text" id="titleInput" placeholder="부장" autocomplete="off">
+        <label for="titleInput">Job Title</label>
+        <input type="text" id="titleInput" placeholder="Manager" autocomplete="off">
       </div>
       <div class="field-group">
-        <label for="phoneInput">전화번호</label>
+        <label for="phoneInput">Phone</label>
         <input type="tel" id="phoneInput" placeholder="010-1234-5678" autocomplete="off">
       </div>
     </div>
 
     <div class="input-row" style="margin-top:16px;">
       <div class="field-group">
-        <label for="emailInput">이메일</label>
+        <label for="emailInput">Email</label>
         <input type="email" id="emailInput" placeholder="name@company.com" autocomplete="off">
       </div>
       <div class="field-group">
-        <label for="websiteInput">웹사이트</label>
+        <label for="websiteInput">Website</label>
         <input type="url" id="websiteInput" placeholder="https://example.com" autocomplete="off">
       </div>
     </div>
@@ -191,7 +204,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -200,7 +213,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
@@ -211,7 +224,7 @@
     <div id="qrcode">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">👤</span>
-        <span>이름을 입력하면 QR코드가 생성됩니다</span>
+        <span>Enter a name to generate a QR code</span>
       </div>
     </div>
     <div class="btn-group">
@@ -220,8 +233,8 @@
   </div>
 
   <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:16px 20px; margin-top:16px; font-size:0.88rem; color:#15803D;">
-    <strong>📱 사용 방법</strong><br>
-    생성된 QR코드를 명함에 인쇄하거나 공유하면, 상대방이 스마트폰 카메라로 스캔해서 연락처를 바로 저장할 수 있습니다.
+    <strong>📱 How to use</strong><br>
+    Print the QR code on your business card or share it. Others can scan with a smartphone camera to save your contact instantly.
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -306,7 +319,7 @@
     const dlBtn = document.getElementById('downloadBtn');
 
     if (!name) {
-      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">👤</span><span>이름을 입력하면 QR코드가 생성됩니다</span></div>';
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">👤</span><span>Enter a name to generate a QR code</span></div>';
       dlBtn.disabled = true;
       return;
     }
@@ -324,7 +337,7 @@
       });
       dlBtn.disabled = false;
     } catch(e) {
-      container.innerHTML = '<div class="alert alert-error">QR코드 생성에 실패했습니다. 입력값을 확인해주세요.</div>';
+      container.innerHTML = '<div class="alert alert-error">Failed to generate QR code. Please check your input.</div>';
       dlBtn.disabled = true;
     }
   }

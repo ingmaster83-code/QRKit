@@ -78,6 +78,13 @@
   ]
 }
 </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -92,7 +99,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-email.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-email.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -122,6 +134,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -140,14 +153,14 @@
   </div>
 
   <div class="input-panel">
-    <label for="toInput">수신자 이메일 *</label>
+    <label for="toInput">Recipient Email *</label>
     <input type="email" id="toInput" placeholder="name@example.com" autocomplete="off">
 
-    <label for="subjectInput">제목</label>
-    <input type="text" id="subjectInput" placeholder="이메일 제목을 입력하세요" autocomplete="off">
+    <label for="subjectInput">Subject</label>
+    <input type="text" id="subjectInput" placeholder="Enter email subject" autocomplete="off">
 
-    <label for="bodyInput">내용</label>
-    <textarea id="bodyInput" placeholder="이메일 내용을 입력하세요 (선택사항)" style="min-height:100px;"></textarea>
+    <label for="bodyInput">Body</label>
+    <textarea id="bodyInput" placeholder="Enter email body (optional)" style="min-height:100px;"></textarea>
   </div>
 
   <div class="options-panel">
@@ -167,7 +180,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="fgColor" value="#000000">
-          <span>QR 코드 색상</span>
+          <span>QR Code Color</span>
         </div>
       </div>
     </div>
@@ -176,7 +189,7 @@
       <div class="option-control">
         <div class="color-row">
           <input type="color" id="bgColor" value="#ffffff">
-          <span>배경 색상</span>
+          <span>Background Color</span>
         </div>
       </div>
     </div>
@@ -187,7 +200,7 @@
     <div id="qrcode">
       <div class="qr-placeholder">
         <span class="qr-placeholder-icon">✉️</span>
-        <span>이메일 주소를 입력하면 QR코드가 생성됩니다</span>
+        <span>Enter an email address to generate a QR code</span>
       </div>
     </div>
     <div class="btn-group">
@@ -258,7 +271,7 @@
     const dlBtn = document.getElementById('downloadBtn');
 
     if (!to) {
-      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">✉️</span><span>이메일 주소를 입력하면 QR코드가 생성됩니다</span></div>';
+      container.innerHTML = '<div class="qr-placeholder"><span class="qr-placeholder-icon">✉️</span><span>Enter an email address to generate a QR code</span></div>';
       dlBtn.disabled = true;
       return;
     }
@@ -281,7 +294,7 @@
       });
       dlBtn.disabled = false;
     } catch(e) {
-      container.innerHTML = '<div class="alert alert-error">QR코드 생성에 실패했습니다.</div>';
+      container.innerHTML = '<div class="alert alert-error">Failed to generate QR code.</div>';
       dlBtn.disabled = true;
     }
   }

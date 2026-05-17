@@ -124,6 +124,7 @@
       margin-top: 8px;
       min-height: 20px;
     }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -144,7 +145,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="barcode-generator.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/barcode-generator.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -174,6 +180,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -192,26 +199,26 @@
   </div>
 
   <div class="input-panel">
-    <label for="barcodeInput">바코드 값 입력</label>
-    <input type="text" id="barcodeInput" placeholder="바코드에 인코딩할 텍스트 또는 숫자" autocomplete="off">
+    <label for="barcodeInput">Barcode Value</label>
+    <input type="text" id="barcodeInput" placeholder="Enter text or number for barcode" autocomplete="off">
     <div class="error-msg" id="errorMsg"></div>
   </div>
 
   <div class="options-panel">
     <div class="options-title">Options</div>
     <div class="option-row">
-      <span class="option-label">형식</span>
+      <span class="option-label">Format</span>
       <div class="option-control">
         <select id="formatSelect">
           <option value="CODE128" selected>CODE128 (Universal)</option>
-          <option value="EAN13">EAN-13 (12자리 숫자)</option>
-          <option value="UPC">UPC-A (11자리 숫자)</option>
+          <option value="EAN13">EAN-13 (12-digit number)</option>
+          <option value="UPC">UPC-A (11-digit number)</option>
           <option value="CODE39">CODE39</option>
         </select>
       </div>
     </div>
     <div class="option-row">
-      <span class="option-label">라인 폭</span>
+      <span class="option-label">Line Width</span>
       <div class="option-control">
         <div class="range-row">
           <input type="range" id="widthRange" min="1" max="4" step="1" value="2">
@@ -220,7 +227,7 @@
       </div>
     </div>
     <div class="option-row">
-      <span class="option-label">높이 (px)</span>
+      <span class="option-label">Height (px)</span>
       <div class="option-control">
         <div class="range-row">
           <input type="range" id="heightRange" min="50" max="200" step="10" value="100">
@@ -229,11 +236,11 @@
       </div>
     </div>
     <div class="option-row">
-      <span class="option-label">값 표시</span>
+      <span class="option-label">Show Value</span>
       <div class="option-control">
         <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
           <input type="checkbox" id="displayValue" checked style="width:16px; height:16px; accent-color:var(--primary);">
-          <span>바코드 아래 값 표시</span>
+          <span>Show value below barcode</span>
         </label>
       </div>
     </div>
@@ -242,7 +249,7 @@
   <div class="barcode-preview-wrap" id="barcodePreviewWrap">
     <div class="barcode-placeholder" id="barcodePlaceholder">
       <span class="barcode-placeholder-icon">📊</span>
-      <span>값을 입력하면 바코드가 생성됩니다</span>
+      <span>Enter a value to generate a barcode</span>
     </div>
     <svg id="barcodeSvg" style="display:none;"></svg>
   </div>
@@ -252,7 +259,7 @@
   </div>
 
   <div class="cross-link-tip">
-    💡 QR코드도 생성하고 싶다면? <a href="../qr-barcode-reader.html">URL QR코드 생성하기 →</a>
+    💡 Want to generate a QR code too? <a href="../qr-url.html">URL QR Code Generator →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -359,7 +366,7 @@
       barcodeSvg.style.display = 'none';
       barcodePlaceholder.style.display = 'flex';
       downloadBtn.disabled = true;
-      errorMsg.textContent = '⚠️ ' + (e.message || '유효하지 않은 값입니다. 형식에 맞는 값을 입력해주세요.');
+      errorMsg.textContent = '⚠️ ' + (e.message || 'Invalid value. Please enter a value matching the selected format.');
     }
   }
 

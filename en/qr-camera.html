@@ -157,6 +157,7 @@
     .result-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-light); margin-bottom: 10px; }
     .result-text { font-size: 1rem; color: var(--text); word-break: break-all; line-height: 1.6; background: var(--bg); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 14px; }
     .error-msg { color: #EF4444; font-size: 0.9rem; padding: 12px 16px; background: #FEF2F2; border-radius: var(--radius-sm); margin-bottom: 16px; }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -177,7 +178,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-camera.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-camera.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -207,6 +213,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -225,7 +232,7 @@
   </div>
 
   <div style="text-align:center; margin-bottom:12px;">
-    <span class="status-badge stopped" id="statusBadge">⏹ 중지됨</span>
+    <span class="status-badge stopped" id="statusBadge">⏹ Stopped</span>
   </div>
 
   <div id="errorMsg" class="error-msg" style="display:none;"></div>
@@ -233,33 +240,33 @@
   <div class="camera-wrap" id="cameraWrap">
     <div class="camera-placeholder" id="cameraPlaceholder">
       <span class="camera-placeholder-icon">📷</span>
-      <span>카메라 시작 버튼을 눌러주세요</span>
+      <span>Press Start Camera button</span>
     </div>
     <video id="cameraVideo" autoplay playsinline muted style="display:none;"></video>
     <canvas id="scanCanvas"></canvas>
     <div class="camera-overlay" id="cameraOverlay" style="display:none;">
       <div class="scan-frame"></div>
-      <div class="scan-hint">QR코드를 프레임 안에 맞춰주세요</div>
+      <div class="scan-hint">Align QR code within the frame</div>
     </div>
   </div>
 
   <div class="btn-group" style="justify-content:center; margin-bottom:20px;">
-    <button id="startBtn" class="btn-primary">▶ 카메라 시작</button>
-    <button id="stopBtn" class="btn-secondary" style="display:none;">⏹ 카메라 중지</button>
+    <button id="startBtn" class="btn-primary">▶ Start Camera</button>
+    <button id="stopBtn" class="btn-secondary" style="display:none;">⏹ Stop Camera</button>
   </div>
 
   <div class="result-panel" id="resultPanel" style="display:none;">
-    <div class="result-label">스캔 결과</div>
+    <div class="result-label">Scan Result</div>
     <div class="result-text" id="resultText"></div>
     <div class="btn-group">
-      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
-      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
-      <button id="continueBtn" class="btn-secondary">🔄 계속 스캔</button>
+      <button id="copyBtn" class="btn-primary">📋 Copy Result</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 Open URL</button>
+      <button id="continueBtn" class="btn-secondary">🔄 Continue Scanning</button>
     </div>
   </div>
 
   <div class="cross-link-tip">
-    💡 이미지 파일로 QR코드를 읽으려면? <a href="../qr-reader.html">QR코드 읽기 (파일 업로드) →</a>
+    💡 Want to decode a QR code from an image file? <a href="../qr-reader.html">QR Code Reader (file upload) →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -336,9 +343,9 @@
 
   function setStatus(state) {
     statusBadge.className = 'status-badge ' + state;
-    if (state === 'scanning') statusBadge.textContent = '🔍 스캔 중...';
-    else if (state === 'stopped') statusBadge.textContent = '⏹ 중지됨';
-    else if (state === 'found') statusBadge.textContent = '✅ QR코드 발견!';
+    if (state === 'scanning') statusBadge.textContent = '🔍 Scanning...';
+    else if (state === 'stopped') statusBadge.textContent = '⏹ Stopped';
+    else if (state === 'found') statusBadge.textContent = '✅ QR Code Found!';
   }
 
   startBtn.addEventListener('click', startCamera);
@@ -362,10 +369,10 @@
       setStatus('scanning');
       video.addEventListener('loadedmetadata', startScan);
     } catch (err) {
-      let msg = '카메라 접근 실패: ';
-      if (err.name === 'NotAllowedError') msg += '카메라 권한이 거부되었습니다. 브라우저 설정에서 카메라 권한을 허용해주세요.';
-      else if (err.name === 'NotFoundError') msg += '카메라를 찾을 수 없습니다.';
-      else if (err.name === 'NotSupportedError') msg += 'HTTPS 환경에서만 카메라를 사용할 수 있습니다.';
+      let msg = 'Camera access failed: ';
+      if (err.name === 'NotAllowedError') msg += 'Camera permission was denied. Please allow camera access in your browser settings.';
+      else if (err.name === 'NotFoundError') msg += 'No camera found.';
+      else if (err.name === 'NotSupportedError') msg += 'Camera is only available in HTTPS environments.';
       else msg += err.message;
       errorMsg.textContent = '⚠️ ' + msg;
       errorMsg.style.display = 'block';
@@ -427,7 +434,7 @@
     if (!lastResult) return;
     navigator.clipboard.writeText(lastResult).then(() => {
       const orig = copyBtn.textContent;
-      copyBtn.textContent = '✅ 복사됨!';
+      copyBtn.textContent = '✅ Copied!';
       setTimeout(() => { copyBtn.textContent = orig; }, 2000);
     }).catch(() => {
       const ta = document.createElement('textarea');
@@ -437,7 +444,7 @@
       document.execCommand('copy');
       document.body.removeChild(ta);
       const orig = copyBtn.textContent;
-      copyBtn.textContent = '✅ 복사됨!';
+      copyBtn.textContent = '✅ Copied!';
       setTimeout(() => { copyBtn.textContent = orig; }, 2000);
     });
   });

@@ -210,6 +210,7 @@
       display: inline-block;
     }
     .btn-download:hover { filter: brightness(0.92); }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -230,7 +231,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-calendar.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-calendar.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -260,6 +266,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -278,64 +285,64 @@
   </div>
 
   <div class="panel">
-    <div class="panel-title">이벤트 정보 입력</div>
+    <div class="panel-title">Enter Event Details</div>
 
-    <!-- 제목 -->
+    <!-- Title -->
     <div class="form-group">
-      <label for="evTitle">이벤트 제목 <span style="color:#EF4444">*</span></label>
-      <input type="text" id="evTitle" placeholder="예: 팀 미팅, 생일 파티, 의사 예약" maxlength="100">
+      <label for="evTitle">Event Title <span style="color:#EF4444">*</span></label>
+      <input type="text" id="evTitle" placeholder="e.g. Team Meeting, Birthday Party" maxlength="100">
     </div>
 
-    <!-- 시작·종료 일시 -->
+    <!-- Start/End Date & Time -->
     <div class="form-row">
       <div class="form-group">
-        <label for="evStart">시작 일시 <span style="color:#EF4444">*</span></label>
+        <label for="evStart">Start Date/Time <span style="color:#EF4444">*</span></label>
         <input type="datetime-local" id="evStart">
       </div>
       <div class="form-group">
-        <label for="evEnd">종료 일시</label>
+        <label for="evEnd">End Date/Time</label>
         <input type="datetime-local" id="evEnd">
       </div>
     </div>
 
-    <!-- 장소 -->
+    <!-- Location -->
     <div class="form-group">
-      <label for="evLocation">장소</label>
-      <input type="text" id="evLocation" placeholder="예: 서울시 강남구 테헤란로 123, 회의실 A" maxlength="200">
+      <label for="evLocation">Location</label>
+      <input type="text" id="evLocation" placeholder="e.g. 123 Main St, Room A" maxlength="200">
     </div>
 
-    <!-- 설명 -->
+    <!-- Description -->
     <div class="form-group">
-      <label for="evDesc">설명</label>
-      <textarea id="evDesc" placeholder="이벤트에 대한 추가 정보를 입력하세요..." maxlength="500"></textarea>
+      <label for="evDesc">Description</label>
+      <textarea id="evDesc" placeholder="Add event notes..." maxlength="500"></textarea>
     </div>
 
-    <!-- QR 크기 -->
+    <!-- QR Size -->
     <div class="form-group">
-      <label>QR코드 크기</label>
+      <label>QR Code Size</label>
       <div class="qr-size-tabs">
-        <button class="qr-size-btn" data-size="200" onclick="setSize(200, this)">소 (200px)</button>
-        <button class="qr-size-btn active" data-size="300" onclick="setSize(300, this)">중 (300px)</button>
-        <button class="qr-size-btn" data-size="400" onclick="setSize(400, this)">대 (400px)</button>
+        <button class="qr-size-btn" data-size="200" onclick="setSize(200, this)">S (200px)</button>
+        <button class="qr-size-btn active" data-size="300" onclick="setSize(300, this)">M (300px)</button>
+        <button class="qr-size-btn" data-size="400" onclick="setSize(400, this)">L (400px)</button>
       </div>
     </div>
 
-    <button class="btn-generate" onclick="generateQR()">📅 QR 일정 생성</button>
+    <button class="btn-generate" onclick="generateQR()">📅 Generate Calendar QR</button>
   </div>
 
-  <!-- QR 출력 -->
+  <!-- QR Output -->
   <div class="qr-output" id="qrOutput">
-    <div style="font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:12px;">생성된 QR코드 — 스캔하면 캘린더에 일정이 추가됩니다</div>
+    <div style="font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:12px;">Generated QR Code — Scan to add event to calendar</div>
     <div id="qrContainer"></div>
     <div style="margin-bottom:12px;">
-      <button class="btn-download" id="downloadBtn" onclick="downloadQR()">⬇ QR코드 다운로드 (PNG)</button>
+      <button class="btn-download" id="downloadBtn" onclick="downloadQR()">⬇ Download QR Code (PNG)</button>
     </div>
-    <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:6px;">iCalendar 미리보기</div>
+    <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:6px;">iCalendar Preview</div>
     <div class="ics-preview" id="icsPreview"></div>
   </div>
 
   <div class="cross-link-tip" style="margin-top:24px;">
-    💡 명함 정보를 QR코드로 만들려면 <a href="qr-vcard.html">명함 QR코드 생성기</a>를 이용하세요.
+    💡 Want to create a business card QR code? <a href="../qr-vcard.html">Business Card QR Code Generator</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -392,7 +399,7 @@ let currentSize = 300;
 let qrInstance = null;
 let lastIcsText = '';
 
-// 기본 날짜: 오늘 + 1시간 ~ +2시간
+// Default date: today + 1h ~ +2h
 (function setDefaultDates() {
   const now = new Date();
   now.setMinutes(0, 0, 0);
@@ -451,18 +458,18 @@ function generateQR() {
   const location = document.getElementById('evLocation').value.trim();
   const desc = document.getElementById('evDesc').value.trim();
 
-  if (!title) { alert('이벤트 제목을 입력하세요.'); document.getElementById('evTitle').focus(); return; }
-  if (!start) { alert('시작 일시를 선택하세요.'); document.getElementById('evStart').focus(); return; }
-  if (end && end < start) { alert('종료 일시는 시작 일시보다 늦어야 합니다.'); document.getElementById('evEnd').focus(); return; }
+  if (!title) { alert('Please enter an event title.'); document.getElementById('evTitle').focus(); return; }
+  if (!start) { alert('Please select a start date/time.'); document.getElementById('evStart').focus(); return; }
+  if (end && end < start) { alert('End date/time must be after start date/time.'); document.getElementById('evEnd').focus(); return; }
 
   const ics = buildIcs(title, start, end, location, desc);
   lastIcsText = ics;
 
-  // QR 컨테이너 초기화
+  // Reset QR container
   const container = document.getElementById('qrContainer');
   container.innerHTML = '';
 
-  // QRCode.js 생성
+  // Generate with QRCode.js
   qrInstance = new QRCode(container, {
     text: ics,
     width: currentSize,
@@ -470,10 +477,10 @@ function generateQR() {
     correctLevel: QRCode.CorrectLevel.M
   });
 
-  // ICS 미리보기 (표시용, \r\n → \n)
+  // ICS preview (for display, \r\n → \n)
   document.getElementById('icsPreview').textContent = ics.replace(/\r\n/g, '\n');
 
-  // 출력 표시
+  // Show output
   const output = document.getElementById('qrOutput');
   output.classList.add('visible');
   output.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -486,18 +493,18 @@ function downloadQR() {
 
   if (canvas) {
     const link = document.createElement('a');
-    link.download = 'QR_일정_' + (document.getElementById('evTitle').value.trim() || 'calendar') + '.png';
+    link.download = 'QR_event_' + (document.getElementById('evTitle').value.trim() || 'calendar') + '.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   } else if (img) {
-    // QRCode.js가 img를 생성한 경우 canvas로 변환
+    // Convert img to canvas if QRCode.js generated an img element
     const cv = document.createElement('canvas');
     cv.width = currentSize;
     cv.height = currentSize;
     const ctx = cv.getContext('2d');
     ctx.drawImage(img, 0, 0);
     const link = document.createElement('a');
-    link.download = 'QR_일정_' + (document.getElementById('evTitle').value.trim() || 'calendar') + '.png';
+    link.download = 'QR_event_' + (document.getElementById('evTitle').value.trim() || 'calendar') + '.png';
     link.href = cv.toDataURL('image/png');
     link.click();
   }

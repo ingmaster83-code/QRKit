@@ -27,7 +27,7 @@
   <meta property="og:url" content="https://qrkit.wooahouse.com/en/index.html">
   <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://qrkit.wooahouse.com/og-image.png">
-  <!-- 구조화 데이터 -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,20 +49,20 @@
     "@type": "ItemList",
     "name": "WooaQR",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"URL QR코드 생성","url":"https://qrkit.wooahouse.com/qr-url.html"},
-      {"@type":"ListItem","position":2,"name":"텍스트 QR코드 생성","url":"https://qrkit.wooahouse.com/qr-text.html"},
-      {"@type":"ListItem","position":3,"name":"WiFi QR코드 생성","url":"https://qrkit.wooahouse.com/qr-wifi.html"},
-      {"@type":"ListItem","position":4,"name":"명함 QR코드 생성","url":"https://qrkit.wooahouse.com/qr-vcard.html"},
-      {"@type":"ListItem","position":5,"name":"이메일 QR코드 생성","url":"https://qrkit.wooahouse.com/qr-email.html"},
-      {"@type":"ListItem","position":6,"name":"전화번호 QR코드 생성","url":"https://qrkit.wooahouse.com/qr-phone.html"},
-      {"@type":"ListItem","position":7,"name":"QR코드 읽기","url":"https://qrkit.wooahouse.com/qr-reader.html"},
-      {"@type":"ListItem","position":8,"name":"카메라 QR코드 읽기","url":"https://qrkit.wooahouse.com/qr-camera.html"},
-      {"@type":"ListItem","position":9,"name":"바코드 생성기","url":"https://qrkit.wooahouse.com/barcode-generator.html"},
-      {"@type":"ListItem","position":10,"name":"QR코드 배치 생성","url":"https://qrkit.wooahouse.com/qr-batch.html"},
-      {"@type":"ListItem","position":11,"name":"SMS QR코드 생성","url":"https://qrkit.wooahouse.com/qr-sms.html"},
-      {"@type":"ListItem","position":12,"name":"소셜미디어 QR코드 생성","url":"https://qrkit.wooahouse.com/qr-social.html"},
-      {"@type":"ListItem","position":13,"name":"위치 QR코드 생성","url":"https://qrkit.wooahouse.com/qr-location.html"},
-      {"@type":"ListItem","position":14,"name":"QR·바코드 이미지 읽기","url":"https://qrkit.wooahouse.com/qr-barcode-reader.html"}
+      {"@type":"ListItem","position":1,"name":"URL QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-url.html"},
+      {"@type":"ListItem","position":2,"name":"Text QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-text.html"},
+      {"@type":"ListItem","position":3,"name":"WiFi QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-wifi.html"},
+      {"@type":"ListItem","position":4,"name":"Business Card QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-vcard.html"},
+      {"@type":"ListItem","position":5,"name":"Email QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-email.html"},
+      {"@type":"ListItem","position":6,"name":"Phone Number QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-phone.html"},
+      {"@type":"ListItem","position":7,"name":"QR Code Reader","url":"https://qrkit.wooahouse.com/en/qr-reader.html"},
+      {"@type":"ListItem","position":8,"name":"Camera QR Code Scanner","url":"https://qrkit.wooahouse.com/en/qr-camera.html"},
+      {"@type":"ListItem","position":9,"name":"Barcode Generator","url":"https://qrkit.wooahouse.com/en/barcode-generator.html"},
+      {"@type":"ListItem","position":10,"name":"Batch QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-batch.html"},
+      {"@type":"ListItem","position":11,"name":"SMS QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-sms.html"},
+      {"@type":"ListItem","position":12,"name":"Social Media QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-social.html"},
+      {"@type":"ListItem","position":13,"name":"Location QR Code Generator","url":"https://qrkit.wooahouse.com/en/qr-location.html"},
+      {"@type":"ListItem","position":14,"name":"QR & Barcode Image Reader","url":"https://qrkit.wooahouse.com/en/qr-barcode-reader.html"}
     ]
   }
   </script>
@@ -91,6 +91,7 @@
       .index-sidebar { display: none; }
       .index-mobile-ad { display: block; }
     }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -110,7 +111,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">About</a>
+      <div class="lang-switcher">
+        <a href="../index.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/index.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -140,6 +146,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -298,23 +305,23 @@
   <div class="features-inner">
     <div>
       <div class="feature-icon">🔒</div>
-      <div class="feature-title">100% 안전</div>
-      <div class="feature-desc">Files never sent to server. 모든 처리가 브라우저 안에서 이루어집니다.</div>
+      <div class="feature-title">100% Safe</div>
+      <div class="feature-desc">Files never sent to server. All processing runs in your browser.</div>
     </div>
     <div>
       <div class="feature-icon">⚡</div>
-      <div class="feature-title">즉시 생성</div>
-      <div class="feature-desc">입력 즉시 QR코드가 생성됩니다. 업로드 없이 빠르게 처리됩니다.</div>
+      <div class="feature-title">Instant Generation</div>
+      <div class="feature-desc">QR codes are generated instantly as you type. No upload needed.</div>
     </div>
     <div>
       <div class="feature-icon">💸</div>
       <div class="feature-title">Completely Free</div>
-      <div class="feature-desc">회원가입 없이 모든 기능을 무제한 무료로 사용할 수 있습니다.</div>
+      <div class="feature-desc">Use all features for free, unlimited, no signup required.</div>
     </div>
     <div>
       <div class="feature-icon">📱</div>
-      <div class="feature-title">모든 기기 지원</div>
-      <div class="feature-desc">PC, 태블릿, 스마트폰 어디서나 사용 가능한 반응형 디자인.</div>
+      <div class="feature-title">All Devices</div>
+      <div class="feature-desc">Responsive design works on PC, tablet, and smartphone.</div>
     </div>
   </div>
 </div>
@@ -324,38 +331,38 @@
     <div class="footer-top">
       <div class="footer-brand">
         <span class="logo-footer">WooaQR</span>
-        <p>무료 온라인 QR코드 도구 모음. 생성, 읽기, 바코드까지 모든 QR 작업을 안전하게 처리하세요.</p>
+        <p>Free online QR code toolkit. Generate, read, and create barcodes — all safely in your browser.</p>
       </div>
       <div class="footer-links">
-        <h4>QR 생성</h4>
-        <a href="qr-url.html">URL QR코드</a>
-        <a href="qr-text.html">텍스트 QR코드</a>
-        <a href="qr-wifi.html">WiFi QR코드</a>
-        <a href="qr-vcard.html">명함 QR코드</a>
-        <a href="qr-email.html">이메일 QR코드</a>
-        <a href="qr-phone.html">전화번호 QR코드</a>
+        <h4>QR Generator</h4>
+        <a href="qr-url.html">URL QR Code</a>
+        <a href="qr-text.html">Text QR Code</a>
+        <a href="qr-wifi.html">WiFi QR Code</a>
+        <a href="qr-vcard.html">Business Card QR</a>
+        <a href="qr-email.html">Email QR Code</a>
+        <a href="qr-phone.html">Phone QR Code</a>
       </div>
       <div class="footer-links">
-        <h4>QR 생성 (신규)</h4>
-        <a href="qr-sms.html">SMS QR코드</a>
-        <a href="qr-social.html">소셜미디어 QR코드</a>
-        <a href="qr-location.html">위치 QR코드</a>
+        <h4>QR Generator (New)</h4>
+        <a href="qr-sms.html">SMS QR Code</a>
+        <a href="qr-social.html">Social Media QR</a>
+        <a href="qr-location.html">Location QR Code</a>
       </div>
       <div class="footer-links">
-        <h4>QR 읽기 &amp; 바코드</h4>
-        <a href="qr-reader.html">QR코드 읽기</a>
-        <a href="qr-camera.html">카메라 QR 읽기</a>
-        <a href="barcode-generator.html">바코드 생성기</a>
-        <a href="qr-batch.html">QR 배치 생성</a>
-        <a href="qr-barcode-reader.html">바코드 이미지 읽기</a>
+        <h4>QR Reader &amp; Barcode</h4>
+        <a href="qr-reader.html">QR Code Reader</a>
+        <a href="qr-camera.html">Camera QR Scanner</a>
+        <a href="barcode-generator.html">Barcode Generator</a>
+        <a href="qr-batch.html">Batch QR Code</a>
+        <a href="qr-barcode-reader.html">Barcode Image Reader</a>
       </div>
       <div class="footer-links">
-        <h4>정보</h4>
-        <a href="../about.html">서비스 소개</a>
+        <h4>Info</h4>
+        <a href="../about.html">About</a>
         <a href="../privacy.html">Privacy Policy</a>
       </div>
       <div class="footer-links">
-        <h4>WooaHouse 서비스</h4>
+        <h4>WooaHouse Services</h4>
         <a href="https://wooahouse.com/" target="_blank" rel="noopener">WooaHouse</a>
         <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">PDFKit</a>
         <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>

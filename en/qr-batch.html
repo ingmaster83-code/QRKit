@@ -147,6 +147,7 @@
       transition: width 0.1s;
       width: 0%;
     }
+  
     .lang-switcher { display:flex; align-items:center; gap:4px; }
     .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
     .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
@@ -167,7 +168,12 @@
       <a href="barcode-generator.html">Barcode</a>
     </nav>
     <div class="header-right">
-      <a href="../index.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none;">All Tools</a>
+      <div class="lang-switcher">
+        <a href="qr-batch.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/qr-batch.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -197,6 +203,7 @@
     <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener">🎵 WooaAudio</a>
     <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
     <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://ocrkit.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
   </div>
 </div>
 
@@ -215,13 +222,13 @@
   </div>
 
   <div class="input-panel">
-    <label for="urlsInput">URL 목록 (한 줄에 하나씩, 최대 20개)</label>
+    <label for="urlsInput">URL List (one per line, up to 20)</label>
     <textarea id="urlsInput" placeholder="https://example.com&#10;https://google.com&#10;https://naver.com"></textarea>
-    <div class="url-count" id="urlCount">0 / 20개 입력됨</div>
+    <div class="url-count" id="urlCount">0 / 20 entered</div>
   </div>
 
   <div class="btn-group" style="margin-bottom:8px;">
-    <button id="generateAllBtn" class="btn-primary">⚡ 전체 생성</button>
+    <button id="generateAllBtn" class="btn-primary">⚡ Generate All</button>
   </div>
 
   <div class="progress-bar-wrap" id="progressWrap">
@@ -231,11 +238,11 @@
   <div id="batchGrid" class="batch-grid" style="display:none;"></div>
 
   <div class="btn-group" id="downloadAllWrap" style="display:none;">
-    <button id="downloadAllBtn" class="btn-primary">⬇️ 전체 ZIP 다운로드</button>
+    <button id="downloadAllBtn" class="btn-primary">⬇️ Download All (ZIP)</button>
   </div>
 
   <div class="cross-link-tip">
-    💡 단일 URL QR코드를 만들려면? <a href="../qr-url.html">URL QR코드 생성하기 →</a>
+    💡 Want to create a single URL QR code? <a href="../qr-url.html">URL QR Code Generator →</a>
   </div>
 
   <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
@@ -311,7 +318,7 @@
   function updateCount() {
     const lines = getUrls();
     const over = lines.length > MAX;
-    urlCount.textContent = lines.length + ' / ' + MAX + '개 입력됨';
+    urlCount.textContent = lines.length + ' / ' + MAX + ' entered';
     urlCount.className = 'url-count' + (over ? ' over' : '');
   }
 
@@ -322,7 +329,7 @@
   generateAllBtn.addEventListener('click', async function() {
     const urls = getUrls();
     if (!urls.length) { alert('Please enter a URL.'); return; }
-    if (urls.length > MAX) { alert('최대 ' + MAX + '개까지 생성할 수 있습니다.'); return; }
+    if (urls.length > MAX) { alert('You can generate up to ' + MAX + ' QR codes at once.'); return; }
 
     batchGrid.innerHTML = '';
     batchGrid.style.display = 'grid';
@@ -332,7 +339,7 @@
     generatedCanvases = [];
 
     generateAllBtn.disabled = true;
-    generateAllBtn.textContent = '생성 중...';
+    generateAllBtn.textContent = 'Generating...';
 
     for (let i = 0; i < urls.length; i++) {
       const url = urls[i];
@@ -363,7 +370,7 @@
       } catch (e) {
         const item = document.createElement('div');
         item.className = 'batch-item';
-        item.innerHTML = '<div class="batch-item-num">#' + (i+1) + '</div><div style="color:#EF4444;font-size:0.82rem;">생성 실패</div><div class="batch-item-url">' + escapeHtml(url) + '</div>';
+        item.innerHTML = '<div class="batch-item-num">#' + (i+1) + '</div><div style="color:#EF4444;font-size:0.82rem;">Generation failed</div><div class="batch-item-url">' + escapeHtml(url) + '</div>';
         batchGrid.appendChild(item);
       }
 
@@ -371,7 +378,7 @@
     }
 
     generateAllBtn.disabled = false;
-    generateAllBtn.textContent = '⚡ 전체 생성';
+    generateAllBtn.textContent = '⚡ Generate All';
     progressWrap.style.display = 'none';
 
     if (generatedCanvases.length > 0) {
@@ -382,7 +389,7 @@
   downloadAllBtn.addEventListener('click', async function() {
     if (!generatedCanvases.length) return;
     downloadAllBtn.disabled = true;
-    downloadAllBtn.textContent = 'ZIP 생성 중...';
+    downloadAllBtn.textContent = 'Creating ZIP...';
 
     const zip = new JSZip();
     for (const item of generatedCanvases) {
@@ -396,7 +403,7 @@
     saveAs(blob, 'qrcodes-batch.zip');
 
     downloadAllBtn.disabled = false;
-    downloadAllBtn.textContent = '⬇️ 전체 ZIP 다운로드';
+    downloadAllBtn.textContent = '⬇️ Download All (ZIP)';
   });
 
   function escapeHtml(str) {
