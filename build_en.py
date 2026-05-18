@@ -1346,7 +1346,12 @@ def build_page(filename, meta):
     if 'lang-switcher' not in html:
         html = html.replace('  </style>', LANG_SWITCHER_CSS + '  </style>', 1)
 
-    # ── 헤더에 언어 선택기 삽입 ──
+    # ── 헤더에 언어 선택기 삽입 (기존 header-right 먼저 제거) ──
+    html = re.sub(
+        r'\s*<div class="header-right">.*</div>(?=\s*\n?\s*</div>\s*\n?</header>)',
+        '',
+        html, count=1, flags=re.DOTALL
+    )
     html = re.sub(
         r'(\s*</div>\s*</header>)',
         f'\n    <div class="header-right">\n'
