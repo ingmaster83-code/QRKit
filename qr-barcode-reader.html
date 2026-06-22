@@ -297,12 +297,7 @@
   </div>
 
   <!-- AdSense -->
-  <ins class="adsbygoogle"
-       style="display:block;margin:20px 0;"
-       data-ad-client="ca-pub-6464921081676309"
-       data-ad-slot="9432796175"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
+  <div id="resultAd" style="text-align:center;margin:16px auto;max-width:728px;padding:0 8px"></div>
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="supported-formats">
@@ -443,6 +438,20 @@
       statusBar.style.display = 'none';
       resultPanel.className = 'result-panel error';
       resultPanel.style.display = 'block';
+      // result 패널 광고 동적 로드
+      const resultAd = document.getElementById('resultAd');
+      if (resultAd && !resultAd.dataset.adLoaded) {
+        const ins = document.createElement('ins');
+        ins.className = 'adsbygoogle';
+        ins.style.cssText = 'display:block';
+        ins.setAttribute('data-ad-client', 'ca-pub-6464921081676309');
+        ins.setAttribute('data-ad-slot', '9432796175');
+        ins.setAttribute('data-ad-format', 'auto');
+        ins.setAttribute('data-full-width-responsive', 'true');
+        resultAd.appendChild(ins);
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        resultAd.dataset.adLoaded = '1';
+      }
       resultContent.innerHTML =
         '<div class="result-error">⚠️ 인식할 수 없습니다. 이미지가 선명한지 확인해주세요.</div>';
       resultBtns.style.display = 'none';
