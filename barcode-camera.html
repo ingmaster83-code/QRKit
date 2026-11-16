@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9ZGENFSXWC');
+  </script>
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50" />
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바코드 카메라 스캔 — 실시간 웹캠 바코드·QR 읽기 무료 | WooaQR</title>
+  <meta name="description" content="바코드 카메라 스캔 무료 — 웹캠으로 바코드(EAN·CODE128·UPC 등)와 QR코드를 실시간으로 읽습니다. 앱 없이 브라우저에서 바로 사용, 서버 전송 없이 100% 안전.">
+  <meta name="keywords" content="바코드 카메라 스캔,바코드 실시간 읽기,웹캠 바코드,바코드 스캐너,QR바코드 카메라,무료QR코드,WooaQR">
+  <link rel="canonical" href="https://qrkit.wooahouse.com/barcode-camera.html">
+  <link rel="alternate" hreflang="ko" href="https://qrkit.wooahouse.com/barcode-camera.html">
+  <link rel="alternate" hreflang="en" href="https://qrkit.wooahouse.com/en/barcode-camera.html">
+  <link rel="alternate" hreflang="x-default" href="https://qrkit.wooahouse.com/en/barcode-camera.html">
+  <meta property="og:title" content="바코드 카메라 스캔 — 실시간 웹캠 바코드·QR 읽기 무료 | WooaQR">
+  <meta property="og:description" content="웹캠으로 바코드와 QR코드를 실시간으로 읽습니다. 앱 없이 브라우저에서 바로 사용할 수 있습니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrkit.wooahouse.com/barcode-camera.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://qrkit.wooahouse.com/og-image.png">
+  <meta property="og:site_name" content="WooaQR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="바코드 카메라 스캔 — 실시간 웹캠 바코드·QR 읽기 무료 | WooaQR">
+  <meta name="twitter:description" content="웹캠으로 바코드와 QR코드를 실시간으로 읽습니다.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+<script src="js/ad-dev-placeholder.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WooaQR">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "바코드 카메라 스캔",
+    "url": "https://qrkit.wooahouse.com/barcode-camera.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type": "Offer","price": "0","priceCurrency": "KRW"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "어떤 바코드 종류를 인식하나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "EAN-13, EAN-8, CODE-128, CODE-39, UPC-A, UPC-E, ITF, Codabar 등 주요 1차원 바코드와 QR코드, Data Matrix, PDF-417 등 2차원 코드까지 함께 인식합니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "카메라 접근 권한을 허용해야 하나요?",
+        "acceptedAnswer": {"@type": "Answer","text": "네, 브라우저에서 카메라 사용 권한을 허용해야 실시간 스캔이 가능합니다."}
+      },
+      {
+        "@type": "Question",
+        "name": "바코드가 잘 인식되지 않아요.",
+        "acceptedAnswer": {"@type": "Answer","text": "바코드 전체가 프레임 안에 들어오도록 거리와 각도를 조절해보세요. 충분한 조명과 초점이 잘 맞을 때 인식률이 높아집니다."}
+      }
+    ]
+  }
+  </script>
+  <style>
+    .camera-wrap {
+      position: relative;
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      aspect-ratio: 4/3;
+    }
+    #cameraVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .camera-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .scan-frame {
+      width: 220px;
+      height: 140px;
+      border: 3px solid rgba(16, 185, 129, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.35);
+    }
+    .scan-hint {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.82rem;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .camera-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      gap: 10px;
+      background: #1a1a2e;
+    }
+    .camera-placeholder-icon { font-size: 3rem; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .status-badge.scanning { background: #D1FAE5; color: #059669; }
+    .status-badge.stopped { background: #F3F4F6; color: #6B7280; }
+    .status-badge.found { background: #FEF3C7; color: #D97706; }
+    .result-panel {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .result-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-light); margin-bottom: 10px; }
+    .result-text { font-size: 1rem; color: var(--text); word-break: break-all; line-height: 1.6; background: var(--bg); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 14px; }
+    .error-msg { color: #EF4444; font-size: 0.9rem; padding: 12px 16px; background: #FEF2F2; border-radius: var(--radius-sm); margin-bottom: 16px; }
+
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaQR</a>
+    <nav>
+      <a href="qr-url.html">URL QR</a>
+      <a href="qr-wifi.html">WiFi QR</a>
+      <a href="qr-vcard.html">명함 QR</a>
+      <a href="qr-reader.html">QR 읽기</a>
+      <a href="barcode-generator.html">바코드</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="barcode-camera.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/barcode-camera.html">EN</a>
+      </div>
+      <a href="about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">소개</a>
+    </div>
+  </div>
+</header>
+
+<script src="js/wooa-sites-bar.js"></script>
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">WooaQR</a>
+    <span>›</span>
+    <span>바코드 카메라 스캔</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📷</span>
+    <h1>바코드 카메라 스캔</h1>
+    <p>웹캠으로 바코드와 QR코드를 실시간 스캔합니다. 카메라 접근 권한을 허용해 주세요.</p>
+  </div>
+
+  <div style="text-align:center; margin-bottom:12px;">
+    <span class="status-badge stopped" id="statusBadge">⏹ 중지됨</span>
+  </div>
+
+  <div id="errorMsg" class="error-msg" style="display:none;"></div>
+
+  <div class="camera-wrap" id="cameraWrap">
+    <div class="camera-placeholder" id="cameraPlaceholder">
+      <span class="camera-placeholder-icon">📷</span>
+      <span>카메라 시작 버튼을 눌러주세요</span>
+    </div>
+    <video id="cameraVideo" autoplay playsinline muted style="display:none;"></video>
+    <div class="camera-overlay" id="cameraOverlay" style="display:none;">
+      <div class="scan-frame"></div>
+      <div class="scan-hint">바코드 또는 QR코드를 프레임 안에 맞춰주세요</div>
+    </div>
+  </div>
+
+  <div class="btn-group" style="justify-content:center; margin-bottom:20px;">
+    <button id="startBtn" class="btn-primary">▶ 카메라 시작</button>
+    <button id="stopBtn" class="btn-secondary" style="display:none;">⏹ 카메라 중지</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel" style="display:none;">
+    <div class="result-label">스캔 결과 <span id="resultFormat"></span></div>
+    <div class="result-text" id="resultText"></div>
+    <div class="btn-group">
+      <button id="copyBtn" class="btn-primary">📋 결과 복사</button>
+      <button id="openBtn" class="btn-secondary" style="display:none;">🔗 URL 열기</button>
+      <button id="continueBtn" class="btn-secondary">🔄 계속 스캔</button>
+    </div>
+  </div>
+
+    <div class="related-tools">
+  <h2>함께 쓰면 좋은 도구</h2>
+  <div class="related-grid">
+    <a href="qr-barcode-reader.html" class="related-card"><span class="related-icon">🔍</span><span>바코드 이미지 읽기</span></a>
+    <a href="qr-camera.html" class="related-card"><span class="related-icon">📷</span><span>카메라 QR 읽기</span></a>
+    <a href="barcode-generator.html" class="related-card"><span class="related-icon">🏷️</span><span>바코드 생성기</span></a>
+    <a href="qr-url.html" class="related-card"><span class="related-icon">🔗</span><span>URL QR코드</span></a>
+  </div>
+</div>
+<div class="wooa-orig-anchor"></div>
+
+  <div class="tips-panel"><h3>💡 Tips</h3><ul><li>바코드와 QR코드를 하나의 카메라 화면에서 동시에 인식합니다.</li><li>바코드는 가로로 눕혀서 프레임 전체에 맞춰야 인식률이 높습니다.</li><li>제품 바코드로 재고 확인이나 가격 비교를 할 때 유용합니다.</li></ul></div>
+<div class="faq-section"><h2>자주 묻는 질문</h2><details><summary>어떤 바코드 종류를 인식하나요?</summary><p>EAN-13, EAN-8, CODE-128, CODE-39, UPC-A, UPC-E, ITF, Codabar 등 주요 1차원 바코드와 QR코드, Data Matrix, PDF-417 등 2차원 코드까지 함께 인식합니다.</p></details><details><summary>카메라 접근 권한을 허용해야 하나요?</summary><p>네, 브라우저에서 카메라 사용 권한을 허용해야 실시간 스캔이 가능합니다.</p></details><details><summary>바코드가 잘 인식되지 않아요.</summary><p>바코드 전체가 프레임 안에 들어오도록 거리와 각도를 조절해보세요. 충분한 조명과 초점이 잘 맞을 때 인식률이 높아집니다.</p></details><details><summary>파일이 서버에 저장되나요?</summary><p>아니요. 모든 처리는 브라우저 안에서만 이루어지며 영상은 서버로 전송되지 않습니다. 개인정보와 민감한 데이터가 외부로 유출될 걱정이 없으며, 기업 보안 환경에서도 안심하고 사용할 수 있습니다.</p></details></div>
+</div>
+
+<aside class="tool-sidebar"></aside>
+</div>
+
+<footer class="footer"></footer>
+
+<script src="https://unpkg.com/@zxing/library@0.19.1/umd/index.min.js"></script>
+<script src="js/wooahouse-originals-tool.js"></script>
+<script>window.PWA_CONFIG={appName:"WooaQR",themeColor:"#10B981",icon:"📱",convertIds:['convertBtn','compressBtn','mergeBtn','splitBtn','deleteBtn','applyBtn','rotateBtn','unlockBtn','processBtn','cropBtn','generateBtn','resizeBtn','startBtn','generateAllBtn','printBtn']};</script>
+<script src="js/pwa-install.js"></script>
+<script>
+(function() {
+  const video = document.getElementById('cameraVideo');
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const statusBadge = document.getElementById('statusBadge');
+  const errorMsg = document.getElementById('errorMsg');
+  const resultPanel = document.getElementById('resultPanel');
+  const resultText = document.getElementById('resultText');
+  const resultFormat = document.getElementById('resultFormat');
+  const copyBtn = document.getElementById('copyBtn');
+  const openBtn = document.getElementById('openBtn');
+  const continueBtn = document.getElementById('continueBtn');
+  const cameraPlaceholder = document.getElementById('cameraPlaceholder');
+  const cameraOverlay = document.getElementById('cameraOverlay');
+
+  const formatNames = {
+    'QR_CODE': 'QR코드', 'EAN_13': 'EAN-13', 'EAN_8': 'EAN-8',
+    'CODE_128': 'CODE-128', 'CODE_39': 'CODE-39', 'UPC_A': 'UPC-A', 'UPC_E': 'UPC-E',
+    'DATA_MATRIX': 'Data Matrix', 'PDF_417': 'PDF-417', 'AZTEC': 'Aztec',
+    'ITF': 'ITF', 'CODABAR': 'Codabar'
+  };
+
+  let codeReader = null;
+  let paused = false;
+  let lastResult = '';
+
+  function setStatus(state) {
+    statusBadge.className = 'status-badge ' + state;
+    if (state === 'scanning') statusBadge.textContent = '🔍 스캔 중...';
+    else if (state === 'stopped') statusBadge.textContent = '⏹ 중지됨';
+    else if (state === 'found') statusBadge.textContent = '✅ 코드 발견!';
+  }
+
+  startBtn.addEventListener('click', startCamera);
+  stopBtn.addEventListener('click', stopCamera);
+  continueBtn.addEventListener('click', resumeScanning);
+
+  async function startCamera() {
+    errorMsg.style.display = 'none';
+    try {
+      codeReader = new ZXing.BrowserMultiFormatReader();
+      video.style.display = 'block';
+      cameraPlaceholder.style.display = 'none';
+      cameraOverlay.style.display = 'flex';
+      startBtn.style.display = 'none';
+      stopBtn.style.display = '';
+      paused = false;
+      setStatus('scanning');
+
+      await codeReader.decodeFromVideoDevice(undefined, video, function (result, err) {
+        if (paused) return;
+        if (result) {
+          paused = true;
+          lastResult = result.getText();
+          const formatKey = String(result.getBarcodeFormat());
+          setStatus('found');
+          resultFormat.textContent = '(' + (formatNames[formatKey] || formatKey) + ')';
+          resultText.textContent = lastResult;
+          resultPanel.style.display = 'block';
+          openBtn.style.display = /^https?:\/\//i.test(lastResult) ? '' : 'none';
+        }
+      });
+    } catch (err) {
+      let msg = '카메라 접근 실패: ';
+      if (err.name === 'NotAllowedError') msg += '카메라 권한이 거부되었습니다. 브라우저 설정에서 카메라 권한을 허용해주세요.';
+      else if (err.name === 'NotFoundError') msg += '카메라를 찾을 수 없습니다.';
+      else if (err.name === 'NotSupportedError' || location.protocol !== 'https:' && location.hostname !== 'localhost') msg += 'HTTPS 환경에서만 카메라를 사용할 수 있습니다.';
+      else msg += err.message;
+      errorMsg.textContent = '⚠️ ' + msg;
+      errorMsg.style.display = 'block';
+      setStatus('stopped');
+      stopCamera();
+    }
+  }
+
+  function resumeScanning() {
+    paused = false;
+    resultPanel.style.display = 'none';
+    lastResult = '';
+    setStatus('scanning');
+  }
+
+  function stopCamera() {
+    paused = false;
+    if (codeReader) {
+      codeReader.reset();
+      codeReader = null;
+    }
+    video.srcObject = null;
+    video.style.display = 'none';
+    cameraPlaceholder.style.display = 'flex';
+    cameraOverlay.style.display = 'none';
+    startBtn.style.display = '';
+    stopBtn.style.display = 'none';
+    resultPanel.style.display = 'none';
+    setStatus('stopped');
+  }
+
+  copyBtn.addEventListener('click', function() {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult).then(() => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = lastResult;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✅ 복사됨!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    });
+  });
+
+  openBtn.addEventListener('click', function() {
+    if (lastResult) window.open(lastResult, '_blank', 'noopener');
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && codeReader) stopCamera();
+  });
+})();
+</script>
+<script src="js/wooa-sidebar.js"></script>
+<script src="js/wooa-footer.js"></script>
+</body>
+</html>
